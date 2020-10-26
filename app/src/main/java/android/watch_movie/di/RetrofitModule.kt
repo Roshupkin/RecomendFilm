@@ -1,12 +1,14 @@
 package android.watch_movie.di
 
-import android.watch_movie.network.retrofit.Best_FilmGet
+import android.watch_movie.network.api.Best_FilmGet
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -22,10 +24,21 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(gson: Gson): Retrofit.Builder {
+    fun provideHttpInterceptor(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        return OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl("https://kinopoiskapiunofficial.tech/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
     }
 
     @Singleton

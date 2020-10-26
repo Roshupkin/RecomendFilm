@@ -1,8 +1,8 @@
 package android.watch_movie.di
 
 import android.content.Context
-import android.watch_movie.db.BestFilmDao
-import android.watch_movie.db.database.Best_FilmDataBase
+import android.watch_movie.cache.database.BestFilmDao
+import android.watch_movie.cache.database.Best_FilmDataBase
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -27,8 +27,8 @@ object RoomModule {
     }
     @Singleton
     @Provides
-    fun provideBest_FilmDAO(best_filmDataBase: Best_FilmDataBase): BestFilmDao{
-        return best_filmDataBase.best_filmDao()
+    fun provideBest_FilmDAO(best_filmDataBase: Best_FilmDataBase): BestFilmDao {
+        return best_filmDataBase.bestfilmDao()
     }
 
 

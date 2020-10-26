@@ -1,55 +1,62 @@
 package android.watch_movie.network.entity
 
+import android.util.Log
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
 data class FilmNetworkEntity(
+    @SerializedName("countries")
+    @Expose
+    val countries: List<CountryNetworkEntity>?,
+
     @SerializedName("filmId")
     @Expose
-    var filmId: Int,
-
-    @SerializedName("nameRu")
-    @Expose
-    var nameRu: String,
-
-    @SerializedName("nameEn")
-    @Expose
-    var nameEn: String,
-
-    @SerializedName("year")
-    @Expose
-    var year: String,
+    val filmId: Int,
 
     @SerializedName("filmLength")
     @Expose
-    var filmLength: String,
-
-    @SerializedName("countries")
-    @Expose
-    var countries: List<CountryNetworkEntiy>? = null,
+    val filmLength: String,
 
     @SerializedName("genres")
     @Expose
-    var genres: List<GenreNetworkEntity>? = null,
+    val genres: List<GenreNetworkEntity>?,
 
-    @SerializedName("rating")
+    @SerializedName("nameEn")
     @Expose
-    var rating: String,
+    val nameEn: String?,
 
-    @SerializedName("ratingVoteCount")
+    @SerializedName("nameRu")
     @Expose
-    var ratingVoteCount: Int,
+    val nameRu: String,
 
     @SerializedName("posterUrl")
     @Expose
-    var posterUrl: String,
+    val posterUrl: String,
 
     @SerializedName("posterUrlPreview")
     @Expose
-    var posterUrlPreview: String,
+    val posterUrlPreview: String,
+
+    @SerializedName("rating")
+    @Expose
+    val rating: String,
 
     @SerializedName("ratingChange")
     @Expose
-    var ratingChange: Any
-)
+    val ratingChange: Any? ,
+
+    @SerializedName("ratingVoteCount")
+    @Expose
+    val ratingVoteCount: Int,
+
+    @SerializedName("year")
+    @Expose
+    val year: String
+
+
+) {
+    init {
+        val TAG = "Network Entity"
+        Log.e(TAG,"ERROR: $year")
+    }
+}

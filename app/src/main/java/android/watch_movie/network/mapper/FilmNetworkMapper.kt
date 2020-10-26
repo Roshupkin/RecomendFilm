@@ -7,24 +7,23 @@ import javax.inject.Inject
 
 class FilmNetworkMapper
 @Inject
-constructor() : EntityMapper<FilmNetworkEntity, Film> {
-    lateinit var genreNetworkMapper: GenreNetworkMapper
-    lateinit var countryNetworkMapper: CountryNetworkMapper
+constructor():EntityMapper<FilmNetworkEntity,Film> {
     override fun mapFromEntity(entity: FilmNetworkEntity): Film {
         return Film(
-            filmId = entity.filmId,
-            nameRu = entity.nameRu,
-            nameEn = entity.nameEn,
-            year = entity.year,
-            filmLength = entity.filmLength,
-            countries = entity.countries?.let { countryNetworkMapper.mapFromEntityList(it) },
-            genres = entity.genres?.let { genreNetworkMapper.mapFromEntityList(it) },
-            rating = entity.rating,
-            ratingVoteCount = entity.ratingVoteCount,
-            posterUrl = entity.posterUrl,
-            posterUrlPreview = entity.posterUrlPreview,
-            ratingChange = entity.ratingChange
+             filmId = entity.filmId,
+         nameRu = entity.nameRu,
+         nameEn = entity.nameEn,
+         year = entity.year,
+        filmLength = entity.filmLength,
+         countries = entity.countries,
+         genres = entity.genres,
+         rating = entity.rating,
+         ratingVoteCount = entity. ratingVoteCount,
+         posterUrl = entity.posterUrl,
+         posterUrlPreview = entity.posterUrlPreview,
+         ratingChange = entity.ratingChange
         )
+
     }
 
     override fun mapToEntity(domainModel: Film): FilmNetworkEntity {
@@ -34,8 +33,8 @@ constructor() : EntityMapper<FilmNetworkEntity, Film> {
             nameEn = domainModel.nameEn,
             year = domainModel.year,
             filmLength = domainModel.filmLength,
-            countries = domainModel.countries?.let { countryNetworkMapper.mapToEntityList(it) },
-            genres = domainModel.genres?.let { genreNetworkMapper.mapToEntityList(it) },
+            countries = domainModel.countries,
+            genres = domainModel.genres,
             rating = domainModel.rating,
             ratingVoteCount = domainModel.ratingVoteCount,
             posterUrl = domainModel.posterUrl,
@@ -43,11 +42,10 @@ constructor() : EntityMapper<FilmNetworkEntity, Film> {
             ratingChange = domainModel.ratingChange
         )
     }
-
-    fun mapFromEntityList(entities: List<FilmNetworkEntity>): List<Film> {
-        return entities.map { mapFromEntity(it) }
+    fun mapFromEntityList(entities:List<FilmNetworkEntity>):List<Film>{
+        return entities.map{ mapFromEntity(it)}
     }
-    fun mapToEntityList(entities: List<Film>): List<FilmNetworkEntity> {
-        return entities.map { mapToEntity(it) }
+    fun mapToEntityList(domainModels:List<Film>):List<FilmNetworkEntity>{
+        return domainModels.map{ mapToEntity(it)}
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_film.xml"
+    app:startDestination="@id/filmFragment">
+
+    <fragment
+        android:id="@+id/filmFragment"
+        android:name="android.watch_movie.ui.fragments.FilmFragment"
+        android:label="FilmFragment"
+        tools:layout="@layout/fragment_films"/>
+</navigation>
