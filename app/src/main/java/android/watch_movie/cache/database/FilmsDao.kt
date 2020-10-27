@@ -1,22 +1,22 @@
 package android.watch_movie.cache.database
 
-import android.watch_movie.cache.entity.Best_FilmCacheEntity
+import android.watch_movie.cache.entity.ListFilmsCacheEntity
 import android.watch_movie.cache.entity.FilmCacheEntity
 import androidx.room.*
 
 
 @Dao
-interface BestFilmDao {
+interface FilmsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBestFilm(bestFilmEntity: Best_FilmCacheEntity): Long
+    suspend fun insertFilms(FilmsEntity: ListFilmsCacheEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFilm(filmEntity: FilmCacheEntity): Long
 
-    @Query("SELECT * FROM best_film")
-    suspend fun getBestFilms(): List<Best_FilmCacheEntity>
+    @Query("SELECT * FROM listfilms")
+    suspend fun getBestFilms(): List<ListFilmsCacheEntity>
 
-    @Query("SELECT * FROM films")
+    @Query("SELECT * FROM film")
     suspend fun getAllBestFilms(): List<FilmCacheEntity>
 }
 

@@ -1,6 +1,6 @@
 package android.watch_movie.di
 
-import android.watch_movie.network.api.Best_FilmGet
+import android.watch_movie.network.api.TopFilmsGet
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -43,10 +43,10 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideBlogService(retrofit: Retrofit.Builder): Best_FilmGet {
+    fun provideFilmService(retrofit: Retrofit.Builder): TopFilmsGet {
         return retrofit
             .build()
-            .create(Best_FilmGet::class.java)
+            .create(TopFilmsGet::class.java)
 
     }
 }

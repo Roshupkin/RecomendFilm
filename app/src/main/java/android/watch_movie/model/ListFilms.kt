@@ -1,6 +1,6 @@
 package android.watch_movie.model
 
-data class Best_Film(
+data class ListFilms(
    var pagesCount: Int,
    var films: List<Film>? = null
 )

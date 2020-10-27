@@ -1,10 +1,10 @@
 package android.watch_movie.di
 
-import android.watch_movie.cache.database.BestFilmDao
+import android.watch_movie.cache.database.FilmsDao
 import android.watch_movie.cache.mapper.FilmCacheMapper
-import android.watch_movie.network.mapper.Best_FilmNetworkMapper
 import android.watch_movie.network.mapper.FilmNetworkMapper
-import android.watch_movie.network.api.Best_FilmGet
+import android.watch_movie.network.api.TopFilmsGet
+import android.watch_movie.network.mapper.ListFilmsNetworkMapper
 import android.watch_movie.repository.FilmRepository
 import dagger.Module
 import dagger.Provides
@@ -19,14 +19,14 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideFilmsRepository(
-        best_FilmGet: Best_FilmGet,
+        topFilmsGet: TopFilmsGet,
         filmNetworkMapper: FilmNetworkMapper,
-        bestFilmDao: BestFilmDao,
+        filmsDao: FilmsDao,
         filmCacheMapper: FilmCacheMapper,
-        bestFilmNetworkMapper:Best_FilmNetworkMapper
+        topFilmsNetworkMapper: ListFilmsNetworkMapper
 
     ): FilmRepository {
-        return FilmRepository(bestFilmDao, filmNetworkMapper, filmCacheMapper, best_FilmGet,bestFilmNetworkMapper)
+        return FilmRepository(filmsDao, filmNetworkMapper, filmCacheMapper, topFilmsGet,topFilmsNetworkMapper)
     }
 
 

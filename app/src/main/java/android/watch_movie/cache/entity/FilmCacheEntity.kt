@@ -6,10 +6,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 
-@Entity(tableName = "films", primaryKeys = arrayOf("id", "filmId"))
+@Entity(tableName = "film", primaryKeys = arrayOf("id", "filmId"))
 data class FilmCacheEntity(
     /* @PrimaryKey(autoGenerate = true)*/
-    val id: Int = 13,
+    val id: Int = 1,
     @ColumnInfo(name = "filmId")
     var filmId: Int,
 
