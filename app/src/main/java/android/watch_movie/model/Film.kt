@@ -8,18 +8,19 @@ import android.watch_movie.network.entity.GenreNetworkEntity
 
 data class Film(
     var filmId: Int,
-    var nameRu: String,
+    var nameRu: String? = null,
     var nameEn: String? = null,
-    var year: String,
-    var filmLength: String,
+    var year: String? = null,
+    var type: String? = null,
+    var filmLength: String? = null,
     var countries: List<CountryNetworkEntity>? = null,
     var genres: List<GenreNetworkEntity>? = null,
-    var rating: String,
-    var ratingVoteCount: Int,
-    var posterUrl: String,
-    var posterUrlPreview: String,
+    var rating: String? = null,
+    var ratingVoteCount: Int? = null,
+    var posterUrl: String? = null,
+    var posterUrlPreview: String? = null,
     var ratingChange: Any? = null
-){
+)/*{
     init {
         val TAG = "Film"
         if(nameEn == null)Log.e(TAG,"ERROR nameEn: $filmId $nameRu $nameEn")
@@ -31,4 +32,4 @@ data class Film(
 
 
     }
-}
+}*/

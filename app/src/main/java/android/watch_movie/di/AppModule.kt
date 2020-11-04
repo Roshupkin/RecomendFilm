@@ -11,7 +11,7 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideSomeString(): String{
+    fun provideSomeString(): String {
         return "Its some string!"
     }
 }

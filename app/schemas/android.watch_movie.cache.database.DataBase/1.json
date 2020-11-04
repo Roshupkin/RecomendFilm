@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d0d6cffb508d52115e5229b345ee59d3",
+    "identityHash": "4ebf5709fcfe93677e972c7eb799122b",
     "entities": [
       {
         "tableName": "listfilms",
@@ -33,7 +33,7 @@
       },
       {
         "tableName": "film",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `filmId` INTEGER NOT NULL, `nameRu` TEXT NOT NULL, `nameEn` TEXT, `year` TEXT NOT NULL, `filmLength` TEXT NOT NULL, `rating` TEXT NOT NULL, `ratingVoteCount` INTEGER NOT NULL, `posterUrl` TEXT NOT NULL, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT NOT NULL, `ratingChange` TEXT, PRIMARY KEY(`id`, `filmId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `filmId` INTEGER NOT NULL, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`id`, `filmId`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -51,7 +51,7 @@
             "fieldPath": "nameRu",
             "columnName": "nameRu",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "nameEn",
@@ -63,31 +63,31 @@
             "fieldPath": "year",
             "columnName": "year",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "filmLength",
             "columnName": "filmLength",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "rating",
             "columnName": "rating",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "ratingVoteCount",
             "columnName": "ratingVoteCount",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "posterUrl",
             "columnName": "posterUrl",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "countries",
@@ -105,11 +105,17 @@
             "fieldPath": "posterUrlPreview",
             "columnName": "posterUrlPreview",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "ratingChange",
             "columnName": "ratingChange",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -123,12 +129,130 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "genres",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idGenre` INTEGER, `genre` TEXT, PRIMARY KEY(`idGenre`))",
+        "fields": [
+          {
+            "fieldPath": "idGenre",
+            "columnName": "idGenre",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genre",
+            "columnName": "genre",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idGenre"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "randomFilm",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` INTEGER NOT NULL, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`filmId`))",
+        "fields": [
+          {
+            "fieldPath": "filmId",
+            "columnName": "filmId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameRu",
+            "columnName": "nameRu",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameEn",
+            "columnName": "nameEn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "filmLength",
+            "columnName": "filmLength",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingVoteCount",
+            "columnName": "ratingVoteCount",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "posterUrl",
+            "columnName": "posterUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countries",
+            "columnName": "countries",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genres",
+            "columnName": "genres",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "posterUrlPreview",
+            "columnName": "posterUrlPreview",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ratingChange",
+            "columnName": "ratingChange",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "filmId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd0d6cffb508d52115e5229b345ee59d3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4ebf5709fcfe93677e972c7eb799122b')"
     ]
   }
 }

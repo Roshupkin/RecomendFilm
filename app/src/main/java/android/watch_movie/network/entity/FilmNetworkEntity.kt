@@ -5,17 +5,17 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class FilmNetworkEntity(
-    @SerializedName("countries")
-    @Expose
-    val countries: List<CountryNetworkEntity>?,
-
     @SerializedName("filmId")
     @Expose
     val filmId: Int,
 
+    @SerializedName("countries")
+    @Expose
+    val countries: List<CountryNetworkEntity>?,
+
     @SerializedName("filmLength")
     @Expose
-    val filmLength: String,
+    val filmLength: String?,
 
     @SerializedName("genres")
     @Expose
@@ -27,19 +27,19 @@ data class FilmNetworkEntity(
 
     @SerializedName("nameRu")
     @Expose
-    val nameRu: String,
+    val nameRu: String?,
 
     @SerializedName("posterUrl")
     @Expose
-    val posterUrl: String,
+    val posterUrl: String?,
 
     @SerializedName("posterUrlPreview")
     @Expose
-    val posterUrlPreview: String,
+    val posterUrlPreview: String?,
 
     @SerializedName("rating")
     @Expose
-    val rating: String,
+    val rating: String?,
 
     @SerializedName("ratingChange")
     @Expose
@@ -47,16 +47,20 @@ data class FilmNetworkEntity(
 
     @SerializedName("ratingVoteCount")
     @Expose
-    val ratingVoteCount: Int,
+    val ratingVoteCount: Int?,
 
     @SerializedName("year")
     @Expose
-    val year: String
+    val year: String?,
+
+    @SerializedName("type")
+    @Expose
+    var type:String?
 
 
-) {
+) /*{
     init {
         val TAG = "Network Entity"
         Log.e(TAG,"ERROR: $year")
     }
-}
+}*/

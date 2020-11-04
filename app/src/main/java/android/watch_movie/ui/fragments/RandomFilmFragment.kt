@@ -6,11 +6,10 @@ import android.util.Log
 import android.view.View
 import android.watch_movie.adapters.FilmListAdapter
 import android.watch_movie.model.Film
-import android.watch_movie.ui.viewmodel.FilmStateEvent
-import android.watch_movie.ui.viewmodel.FilmViewModule
+import android.watch_movie.ui.viewmodel.RandomFilmStateEvent
+import android.watch_movie.ui.viewmodel.RandomFilmViewModel
 import android.watch_movie.util.DataState
 import android.watch_movie.util.TopSpacingItemDecoratio
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,61 +19,79 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class FilmFragment
-constructor(
-    private val someString: String
-) : Fragment(R.layout.fragment_films), FilmListAdapter.Interaction{
-    private val viewModel: FilmViewModule by viewModels()
-    private val TAG = "FilmFragment"
-    lateinit var filmListAdapter:FilmListAdapter
+class RandomFilmFragment : Fragment(R.layout.random_fragment_film) {
+    private val viewModule: RandomFilmViewModel by viewModels()
+    lateinit var filmListAdapter: FilmListAdapter
+    private val TAG = "RandomFilmFragment"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModule.setStateEvent(RandomFilmStateEvent.ReplaceRandomEntity)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        subscribeObservers()
-        viewModel.setStateEvent(FilmStateEvent.GetFilmsEvent)
+        subscreibeObsirevers()
+        viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
         initRecyclerView()
-
-        Log.d(TAG, "Hey look! $someString")
+        Log.e(TAG, "onViewCreated")
     }
 
 
-    private fun subscribeObservers() {
-
-        viewModel.dataState.observe(viewLifecycleOwner,  { dataState ->
+    private fun subscreibeObsirevers() {
+        viewModule.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
                     filmListAdapter.submitList(dataState.data)
-                    Log.e(TAG, "ERRORtype: ${dataState.data}")
+                    //         Log.e(TAG, "ERRORtype: ${dataState.data}")
+                }
+                is DataState.Loading -> {
+                    displayProgressBar(true)
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
                     displayError(dataState.exception.message)
                 }
-                is DataState.Loading -> {
-                    displayProgressBar(true)
+                is DataState.HttpError -> {
+                    viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
+                    displayHttpEror(dataState.httpException.code())
+
 
                 }
-
             }
+
         })
+
     }
 
     private fun displayError(message: String?) {
-        if (message != null)
+        if (message != null) {
             text.text = message
-        else
+        } else
             text.text = "Unknown error"
         Log.e(TAG, "ERROR: $message")
     }
-    private fun initRecyclerView(){
+
+    private fun displayHttpEror(code: Int?) {
+        when (code) {
+            404 -> {/*Films are not found*/
+            }
+            401 -> {/*Wrong or empty access token*/
+            }
+            429 -> {/*Too Many Requests. Limit 10 req/sec*/
+            }
+
+        }
+
+    }
+
+    private fun initRecyclerView() {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(activity)
             val topSpacingItemDecoratio = TopSpacingItemDecoratio(20)
             addItemDecoration(topSpacingItemDecoratio)
-            filmListAdapter = FilmListAdapter(this@FilmFragment)
+            filmListAdapter = FilmListAdapter()
             adapter = filmListAdapter
         }
     }
@@ -84,11 +101,6 @@ constructor(
             if (isDisplayed) View.VISIBLE
             else View.GONE
 
-    }
-
-    override fun onItemSelected(position: Int, item: Film) {
-        Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
-        Toast.makeText(context, "$item", Toast.LENGTH_SHORT).show()
     }
 
 

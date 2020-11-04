@@ -1,7 +1,9 @@
 package android.watch_movie.di
 
-import android.watch_movie.network.mapper.ListFilmsNetworkMapper
 import android.watch_movie.network.mapper.FilmNetworkMapper
+import android.watch_movie.network.mapper.FilterGCNetworkMapper
+import android.watch_movie.network.mapper.GenreNetworkMapper
+import android.watch_movie.network.mapper.ListFilmsNetworkMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +15,14 @@ import javax.inject.Singleton
 object MapperModule {
     @Singleton
     @Provides
-    fun providesBestFilmNetworkMapper(
+    fun providesFilmNetworkMapper(
         filmNetworkMapper: FilmNetworkMapper
     ): ListFilmsNetworkMapper = ListFilmsNetworkMapper(filmNetworkMapper)
+
+    @Singleton
+    @Provides
+    fun providesGenreNetworkMapper(
+        genreNetworkMapper: GenreNetworkMapper
+    ): FilterGCNetworkMapper = FilterGCNetworkMapper(genreNetworkMapper)
+
 }

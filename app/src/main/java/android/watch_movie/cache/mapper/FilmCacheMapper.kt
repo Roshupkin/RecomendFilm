@@ -22,7 +22,8 @@ constructor(): EntityMapper<FilmCacheEntity, Film> {
             ratingVoteCount = entity.ratingVoteCount,
             posterUrl = entity.posterUrl,
             posterUrlPreview = entity.posterUrlPreview,
-            ratingChange = entity.ratingChange
+            ratingChange = entity.ratingChange,
+            type = entity.type
         )
     }
 
@@ -39,7 +40,8 @@ constructor(): EntityMapper<FilmCacheEntity, Film> {
             countries = domainModel.countries,
             genres = domainModel.genres,
             posterUrlPreview = domainModel.posterUrlPreview,
-            ratingChange = domainModel.ratingChange
+            ratingChange = domainModel.ratingChange,
+            type = domainModel.type
         )
     }
     fun mapFromEntityList(entities:List<FilmCacheEntity>):List<Film>{

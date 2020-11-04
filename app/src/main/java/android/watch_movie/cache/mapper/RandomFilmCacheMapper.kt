@@ -1,14 +1,16 @@
-package android.watch_movie.network.mapper
+package android.watch_movie.cache.mapper
 
+import android.watch_movie.cache.entity.FilmCacheEntity
+import android.watch_movie.cache.entity.RandomFilmCacheEntity
 import android.watch_movie.model.Film
-import android.watch_movie.network.entity.FilmNetworkEntity
 import android.watch_movie.util.EntityMapper
 import javax.inject.Inject
 
-class FilmNetworkMapper
+
+class RandomFilmCacheMapper
 @Inject
-constructor() : EntityMapper<FilmNetworkEntity, Film> {
-    override fun mapFromEntity(entity: FilmNetworkEntity): Film {
+constructor(): EntityMapper<RandomFilmCacheEntity, Film> {
+    override fun mapFromEntity(entity: RandomFilmCacheEntity):Film  {
         return Film(
             filmId = entity.filmId,
             nameRu = entity.nameRu,
@@ -24,32 +26,26 @@ constructor() : EntityMapper<FilmNetworkEntity, Film> {
             ratingChange = entity.ratingChange,
             type = entity.type
         )
-
     }
 
-    override fun mapToEntity(domainModel: Film): FilmNetworkEntity {
-        return FilmNetworkEntity(
+    override fun mapToEntity(domainModel: Film): RandomFilmCacheEntity {
+        return RandomFilmCacheEntity(
             filmId = domainModel.filmId,
             nameRu = domainModel.nameRu,
             nameEn = domainModel.nameEn,
             year = domainModel.year,
             filmLength = domainModel.filmLength,
-            countries = domainModel.countries,
-            genres = domainModel.genres,
             rating = domainModel.rating,
             ratingVoteCount = domainModel.ratingVoteCount,
             posterUrl = domainModel.posterUrl,
+            countries = domainModel.countries,
+            genres = domainModel.genres,
             posterUrlPreview = domainModel.posterUrlPreview,
             ratingChange = domainModel.ratingChange,
             type = domainModel.type
         )
     }
-
-    fun mapFromEntityList(entities: List<FilmNetworkEntity>): List<Film> {
-        return entities.map { mapFromEntity(it) }
-    }
-
-    fun mapToEntityList(domainModels: List<Film>): List<FilmNetworkEntity> {
-        return domainModels.map { mapToEntity(it) }
+    fun mapFromEntityList(entities:List<RandomFilmCacheEntity>):List<Film>{
+        return entities.map{ mapFromEntity(it)}
     }
 }

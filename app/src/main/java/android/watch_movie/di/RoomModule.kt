@@ -1,8 +1,8 @@
 package android.watch_movie.di
 
 import android.content.Context
-import android.watch_movie.cache.database.FilmsDao
 import android.watch_movie.cache.database.DataBase
+import android.watch_movie.cache.database.FilmsDao
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -25,6 +25,7 @@ object RoomModule {
             .fallbackToDestructiveMigration()
             .build()
     }
+
     @Singleton
     @Provides
     fun provideFilmsDAO(dataBase: DataBase): FilmsDao {

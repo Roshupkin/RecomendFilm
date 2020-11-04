@@ -92,6 +92,9 @@ dependencies {
     def glide_version = "4.8.0"
     implementation "com.github.bumptech.glide:glide:4.11.0"
     annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+
+    //Design
+    implementation "com.google.android.material:material:1.2.1"
 }
 
 kapt {
