@@ -1,13 +1,13 @@
 package android.watch_movie.model
 
 
-import android.util.Log
 import android.watch_movie.network.entity.CountryNetworkEntity
 import android.watch_movie.network.entity.GenreNetworkEntity
 
 
 data class Film(
     var filmId: Int,
+    var countFilm: Int? = 0,
     var nameRu: String? = null,
     var nameEn: String? = null,
     var year: String? = null,
@@ -19,7 +19,7 @@ data class Film(
     var ratingVoteCount: Int? = null,
     var posterUrl: String? = null,
     var posterUrlPreview: String? = null,
-    var ratingChange: Any? = null
+    var ratingChange: Any? = null,
 )/*{
     init {
         val TAG = "Film"

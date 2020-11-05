@@ -13,6 +13,7 @@ constructor(): EntityMapper<RandomFilmCacheEntity, Film> {
     override fun mapFromEntity(entity: RandomFilmCacheEntity):Film  {
         return Film(
             filmId = entity.filmId,
+            countFilm = entity.countFilm,
             nameRu = entity.nameRu,
             nameEn = entity.nameEn,
             year = entity.year,
@@ -31,6 +32,7 @@ constructor(): EntityMapper<RandomFilmCacheEntity, Film> {
     override fun mapToEntity(domainModel: Film): RandomFilmCacheEntity {
         return RandomFilmCacheEntity(
             filmId = domainModel.filmId,
+            countFilm = domainModel.countFilm,
             nameRu = domainModel.nameRu,
             nameEn = domainModel.nameEn,
             year = domainModel.year,

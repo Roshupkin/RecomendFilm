@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4ebf5709fcfe93677e972c7eb799122b",
+    "identityHash": "a6c4db3c7525c8944996026be61a8331",
     "entities": [
       {
         "tableName": "listfilms",
@@ -158,13 +158,19 @@
       },
       {
         "tableName": "randomFilm",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` INTEGER NOT NULL, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`filmId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` INTEGER NOT NULL, `countFilm` INTEGER, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`filmId`))",
         "fields": [
           {
             "fieldPath": "filmId",
             "columnName": "filmId",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "countFilm",
+            "columnName": "countFilm",
+            "affinity": "INTEGER",
+            "notNull": false
           },
           {
             "fieldPath": "nameRu",
@@ -252,7 +258,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4ebf5709fcfe93677e972c7eb799122b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a6c4db3c7525c8944996026be61a8331')"
     ]
   }
 }

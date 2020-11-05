@@ -23,18 +23,13 @@ class RandomFilmRepository(
     private val listFilmsNetworkMapper: ListFilmsNetworkMapper,
     private val genresCacheMapper: GenresCacheMapper,
     private val genreNetworkMapper: GenreNetworkMapper,
-    private val filterGCNetworkMapper: FilterGCNetworkMapper
+    private val filterGCNetworkMapper: FilterGCNetworkMapper,
 ) {
     private val TAG = "Random Repository"
 
     private val PAGE_NUMBER = 1 /*(1..5).random()*/
-    private val TYPE = "ALL"//type FILM, ALL, TV_SHOWS
-    var MAX_YEAR_RAND = (2017..2020).random()
-    var MIN_YEAR_RAND = (1960 until MAX_YEAR_RAND).random()
-    var GENRE_RAND = (1..19).random()
-    var RATING_TO_RAND = (8..10).random()
-    var RATING_FROM_RAND = (6 until RATING_TO_RAND).random()
-
+    private val TYPE = "FILM"//type FILM, ALL, TV_SHOWS
+    var count =0
 
     fun orderOfSortingString(): String {
         val random = (1..2).random()
@@ -42,13 +37,18 @@ class RandomFilmRepository(
         if (random == 1)
             return "RATING"
         return "NUM_VOTE"
-
         //   return "YEAR"
     }
 
     suspend fun getRandomFilms(): Flow<DataState<List<Film>>> = flow {
         emit(DataState.Loading)
         try {
+            val MAX_YEAR_RAND = (2017..2020).random()
+            val MIN_YEAR_RAND = (1960 until MAX_YEAR_RAND).random()
+            val GENRE_RAND = (1..19).random()
+            val RATING_TO_RAND = (8..10).random()
+            val RATING_FROM_RAND = (6 until RATING_TO_RAND).random()
+
             Log.e(TAG, "ORDER_OF_SORTING_RAND!: ${orderOfSortingString()}")
             Log.e(TAG, "RATING_FROM_RAND!: $RATING_FROM_RAND")
             Log.e(TAG, "RATING_FROM_RAND!: $RATING_TO_RAND")
@@ -65,15 +65,15 @@ class RandomFilmRepository(
                 filmsDao.insertGenresFilter(genresCacheMapper.mapToEntity(genre))
 
             }
-            val randomGaere = filmsDao.getIdGenresFilter()[GENRE_RAND-1]
-            Log.e(TAG, "lIST: ${filmsDao.getIdGenresFilter()[GENRE_RAND-1].idGenre}")
+            val randomGaere = filmsDao.getIdGenresFilter()[GENRE_RAND - 1]
+            Log.e(TAG, "lIST: ${filmsDao.getIdGenresFilter()[GENRE_RAND - 1].idGenre}")
 
             val randomGaereId = genresCacheMapper.mapFromEntity(randomGaere).idGenre
             //  Log.e(TAG, "randomGaereId $randomGaereId")
             val networkRandomFilm = filmsGet.getFiltersFilm(
                 genre = randomGaereId,
                 order = orderOfSortingString(),
-                type = "FILM",
+                type = TYPE,
                 ratingFrom = RATING_FROM_RAND,
                 ratingTo = RATING_TO_RAND,
                 yearFrom = MIN_YEAR_RAND,
@@ -81,21 +81,22 @@ class RandomFilmRepository(
                 page = PAGE_NUMBER
             )
             val listRandomFilms = listFilmsNetworkMapper.mapFromEntity(networkRandomFilm)
+            Log.e(TAG,"$listRandomFilms")
+
+            count+=1
             for (randomFilm in listRandomFilms.films!!) {
+                randomFilm.countFilm = count
                 val randomFilmCacheEntity = randomFilmCacheMapper.mapToEntity(randomFilm)
                 filmsDao.insertRandomFilm(randomFilmCacheEntity)
             }
             val cachedRandomFilm = filmsDao.getAllRandomFilms()
             val randomFilms = randomFilmCacheMapper.mapFromEntityList(cachedRandomFilm)
+
             emit(DataState.Success(randomFilms))
 
 
-
         } catch (e: HttpException) {
-            filmsDao.deleteAllRandomFilms()
-          /*  Log.e(TAG, "${e.code()}")*/
             emit(DataState.HttpError(e))
-
         } catch (e: Exception) {
             filmsDao.deleteAllRandomFilms()
 

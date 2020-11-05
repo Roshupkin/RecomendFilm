@@ -19,7 +19,7 @@ class RandomFilmViewModel
 @ViewModelInject
 constructor(
     private val randomFilmRepository: RandomFilmRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    @Assisted private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _dataState: MutableLiveData<DataState<List<Film>>> = MutableLiveData()
     val TAG = "RAndomViewModule"

@@ -24,9 +24,9 @@ interface FilmsDao {
     @Query("SELECT * FROM genres ")
     suspend fun getIdGenresFilter(/*id:Int*/):List< GenresCacheEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertRandomFilm(filmEntity: RandomFilmCacheEntity): Long
-    @Query("SELECT * FROM randomFilm ORDER BY rating DESC")
+    @Query("SELECT * FROM randomFilm ORDER BY countFilm ")
     suspend fun getAllRandomFilms(): List<RandomFilmCacheEntity>
     @Query("DELETE FROM randomFilm")
     suspend fun deleteAllRandomFilms()
