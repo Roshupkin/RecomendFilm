@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "genres")
-data class GenresCacheEntity(
+data class GenresCache(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "idGenre")
     var idGenre: Int? = null,

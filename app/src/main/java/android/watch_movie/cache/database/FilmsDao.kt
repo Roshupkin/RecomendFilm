@@ -1,35 +1,28 @@
 package android.watch_movie.cache.database
 
-import android.watch_movie.cache.entity.FilmCacheEntity
-import android.watch_movie.cache.entity.ListFilmsCacheEntity
-import android.watch_movie.cache.entity.GenresCacheEntity
-import android.watch_movie.cache.entity.RandomFilmCacheEntity
-import androidx.room.*
+import android.watch_movie.cache.entity.TopFilmCache
+import android.watch_movie.cache.entity.GenresCache
+import android.watch_movie.cache.entity.ListFilmsCache
+import android.watch_movie.cache.entity.RandomFilmCache
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 
 @Dao
 interface FilmsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFilms(FilmsEntity: ListFilmsCacheEntity): Long
+    suspend fun insertFilms(FilmsEntity: ListFilmsCache): Long
+
     @Query("SELECT * FROM listfilms")
-    suspend fun getBestFilms(): List<ListFilmsCacheEntity>
+    suspend fun getBestFilms(): List<ListFilmsCache>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFilm(filmEntity: FilmCacheEntity): Long
-    @Query("SELECT * FROM film")
-    suspend fun getAllBestFilms(): List<FilmCacheEntity>
+    suspend fun insertFilm(filmEntity: TopFilmCache): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGenresFilter(genresCacheEntity: GenresCacheEntity): Long
-    @Query("SELECT * FROM genres ")
-    suspend fun getIdGenresFilter(/*id:Int*/):List< GenresCacheEntity>
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertRandomFilm(filmEntity: RandomFilmCacheEntity): Long
-    @Query("SELECT * FROM randomFilm ORDER BY countFilm ")
-    suspend fun getAllRandomFilms(): List<RandomFilmCacheEntity>
-    @Query("DELETE FROM randomFilm")
-    suspend fun deleteAllRandomFilms()
+    @Query("SELECT * FROM top_film")
+    suspend fun getAllBestFilms(): List<TopFilmCache>
 
 }
 

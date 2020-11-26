@@ -1,6 +1,5 @@
 package android.watch_movie.network.entity
 
-import android.util.Log
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -9,25 +8,17 @@ data class FilmNetworkEntity(
     @Expose
     val filmId: Int,
 
-    @SerializedName("countries")
+    @SerializedName("nameRu")
     @Expose
-    val countries: List<CountryNetworkEntity>?,
-
-    @SerializedName("filmLength")
-    @Expose
-    val filmLength: String?,
-
-    @SerializedName("genres")
-    @Expose
-    val genres: List<GenreNetworkEntity>?,
+    val nameRu: String?,
 
     @SerializedName("nameEn")
     @Expose
     val nameEn: String?,
 
-    @SerializedName("nameRu")
+    @SerializedName("webUrl")
     @Expose
-    val nameRu: String?,
+    val webUrl: String?,
 
     @SerializedName("posterUrl")
     @Expose
@@ -37,30 +28,91 @@ data class FilmNetworkEntity(
     @Expose
     val posterUrlPreview: String?,
 
+    @SerializedName("year")
+    @Expose
+    val year: String?,
+
+    @SerializedName("filmLength")
+    @Expose
+    val filmLength: String?,
+
+    @SerializedName("slogan")
+    @Expose
+    val slogan: String?,
+
+    @SerializedName("description")
+    @Expose
+    val description: String?,
+
+    @SerializedName("type")
+    @Expose
+    var type: String?,
+
+    @SerializedName("ratingMpa")
+    @Expose
+    val ratingMpa: String?,
+
+    @SerializedName("ratingAgeLimits")
+    @Expose
+    val ratingAgeLimits: Int?,
+
+    @SerializedName("premiereRu")
+    @Expose
+    val premiereRu: String?,
+
+    @SerializedName("distributors")
+    @Expose
+    val distributors: String?,
+
+    @SerializedName("premiereWorld")
+    @Expose
+    val premiereWorld: String?,
+
+    @SerializedName("premiereDigital")
+    @Expose
+    val premiereDigital: String?,
+
+    @SerializedName("premiereWorldCountry")
+    @Expose
+    val premiereWorldCountry: String?,
+
+    @SerializedName("premiereDvd")
+    @Expose
+    val premiereDvd: String?,
+
+    @SerializedName("premiereBluRay")
+    @Expose
+    val premiereBluRay: String?,
+
+    @SerializedName("distributorRelease")
+    @Expose
+    val distributorRelease: String?,
+
+    @SerializedName("countries")
+    @Expose
+    val countries: List<CountryNetworkEntity>?,
+
+    @SerializedName("genres")
+    @Expose
+    val genres: List<GenreNetworkEntity>?,
+
+    @SerializedName("facts")
+    @Expose
+    val facts: List<String>?,
+
+    @SerializedName("seasons")
+    @Expose
+    val seasons: List<Int>?,
+
     @SerializedName("rating")
     @Expose
     val rating: String?,
-
-    @SerializedName("ratingChange")
-    @Expose
-    val ratingChange: Any? ,
 
     @SerializedName("ratingVoteCount")
     @Expose
     val ratingVoteCount: Int?,
 
-    @SerializedName("year")
+    @SerializedName("ratingChange")
     @Expose
-    val year: String?,
-
-    @SerializedName("type")
-    @Expose
-    var type:String?
-
-
-) /*{
-    init {
-        val TAG = "Network Entity"
-        Log.e(TAG,"ERROR: $year")
-    }
-}*/
+    val ratingChange: Any?
+)

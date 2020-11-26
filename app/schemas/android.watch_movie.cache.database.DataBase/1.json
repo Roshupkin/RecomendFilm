@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a6c4db3c7525c8944996026be61a8331",
+    "identityHash": "9be77456f6e54a3276b53195ddddd221",
     "entities": [
       {
         "tableName": "listfilms",
@@ -32,7 +32,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "film",
+        "tableName": "top_film",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `filmId` INTEGER NOT NULL, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`id`, `filmId`))",
         "fields": [
           {
@@ -157,7 +157,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "randomFilm",
+        "tableName": "random_film",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` INTEGER NOT NULL, `countFilm` INTEGER, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`filmId`))",
         "fields": [
           {
@@ -258,7 +258,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a6c4db3c7525c8944996026be61a8331')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9be77456f6e54a3276b53195ddddd221')"
     ]
   }
 }

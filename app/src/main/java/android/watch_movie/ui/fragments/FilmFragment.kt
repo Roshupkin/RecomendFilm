@@ -22,7 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class FilmFragment
 constructor(
-    private val someString: String
+   /* private val someString: String*/
 ) : Fragment(R.layout.fragment_films), FilmListAdapter.Interaction{
     private val viewModel: FilmViewModule by viewModels()
     private val TAG = "FilmFragment"
@@ -36,7 +36,7 @@ constructor(
         viewModel.setStateEvent(FilmStateEvent.GetFilmsEvent)
         initRecyclerView()
 
-        Log.d(TAG, "Hey look! $someString")
+//        Log.d(TAG, "Hey look! $someString")
     }
 
 
@@ -51,7 +51,7 @@ constructor(
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
-                    displayError(dataState.exception.message)
+                    displayError(dataState.exceptionMessage)
                 }
                 is DataState.Loading -> {
                     displayProgressBar(true)
@@ -87,8 +87,8 @@ constructor(
     }
 
     override fun onItemSelected(position: Int, item: Film) {
-        Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
-        Toast.makeText(context, "$item", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "$item", Toast.LENGTH_SHORT).show()
     }
 
 

@@ -2,7 +2,7 @@ package android.watch_movie.repository
 
 import android.util.Log
 import android.watch_movie.cache.database.FilmsDao
-import android.watch_movie.cache.mapper.FilmCacheMapper
+import android.watch_movie.cache.mapper.TopFilmCacheMapper
 import android.watch_movie.model.Film
 import android.watch_movie.network.mapper.ListFilmsNetworkMapper
 import android.watch_movie.network.mapper.FilmNetworkMapper
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
 class FilmRepository(
     private val filmsDao: FilmsDao,
     private val filmNetworkMapper: FilmNetworkMapper,
-    private val filmCacheMapper: FilmCacheMapper,
+    private val filmCacheMapper: TopFilmCacheMapper,
     private val filmsGet: FilmsApi,
     private val listFilmsNetworkMapper: ListFilmsNetworkMapper
 ) {
@@ -33,7 +33,7 @@ class FilmRepository(
 
 
         } catch (e: Exception) {
-            emit(DataState.Error(e))
+            emit(DataState.Error(e.message.toString()))
             Log.e(TAG, "Hey look! $e")
         }
     }

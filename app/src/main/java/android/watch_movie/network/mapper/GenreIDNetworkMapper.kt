@@ -1,23 +1,23 @@
 package android.watch_movie.network.mapper
 
 import android.watch_movie.model.FilterGC
-import android.watch_movie.network.entity.FilterGCNetworkEntity
+import android.watch_movie.network.entity.GenreIDNetworkEntity
 import android.watch_movie.util.EntityMapper
 import javax.inject.Inject
 
-class FilterGCNetworkMapper
+class GenreIDNetworkMapper
 @Inject
 constructor(
     private val genreNetworkMapper: GenreNetworkMapper
-):EntityMapper<FilterGCNetworkEntity,FilterGC> {
-    override fun mapFromEntity(entity: FilterGCNetworkEntity): FilterGC {
+):EntityMapper<GenreIDNetworkEntity,FilterGC> {
+    override fun mapFromEntity(entity: GenreIDNetworkEntity): FilterGC {
         return FilterGC(
             genres = entity.genres?.let { genreNetworkMapper.mapFromEntityList(it) }
         )
     }
 
-    override fun mapToEntity(domainModel: FilterGC): FilterGCNetworkEntity {
-       return FilterGCNetworkEntity(
+    override fun mapToEntity(domainModel: FilterGC): GenreIDNetworkEntity {
+       return GenreIDNetworkEntity(
            genres = domainModel.genres?.let { genreNetworkMapper.mapToEntityList(it) }
 
        )

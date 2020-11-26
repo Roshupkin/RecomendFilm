@@ -1,50 +1,47 @@
 package android.watch_movie.cache.mapper
 
-import android.watch_movie.cache.entity.FilmCacheEntity
+import android.watch_movie.cache.entity.FilmCache
 import android.watch_movie.model.Film
 import android.watch_movie.util.EntityMapper
 import javax.inject.Inject
 
-
 class FilmCacheMapper
-@Inject
-constructor(): EntityMapper<FilmCacheEntity, Film> {
-    override fun mapFromEntity(entity: FilmCacheEntity):Film  {
+@Inject constructor() : EntityMapper<FilmCache, Film> {
+    override fun mapFromEntity(entity: FilmCache): Film {
         return Film(
             filmId = entity.filmId,
+            countFilm = entity.countFilm,
             nameRu = entity.nameRu,
             nameEn = entity.nameEn,
-            year = entity.year,
-            filmLength = entity.filmLength,
-            countries = entity.countries,
-            genres = entity.genres,
-            rating = entity.rating,
-            ratingVoteCount = entity.ratingVoteCount,
+            webUrl = entity.webUrl,
             posterUrl = entity.posterUrl,
             posterUrlPreview = entity.posterUrlPreview,
+            year = entity.year,
+            filmLength = entity.filmLength,
+            slogan = entity.slogan,
+            description = entity.description,
+            type = entity.type,
+            ratingMpa = entity.ratingMpa,
+            ratingAgeLimits = entity.ratingAgeLimits,
+            premiereRu = entity.premiereRu,
+            distributors = entity.distributors,
+            premiereWorld = entity.premiereWorld,
+            premiereDigital = entity.premiereDigital,
+            premiereWorldCountry = entity.premiereWorldCountry,
+            premiereDvd = entity.premiereDvd,
+            premiereBluRay = entity.premiereBluRay,
+            distributorRelease = entity.distributorRelease,
+            countries = entity.countries,
+            genres = entity.genres,
+            facts = entity.facts,
+            seasons = entity.seasons,
+            rating = entity.rating,
+            ratingVoteCount = entity.ratingVoteCount,
             ratingChange = entity.ratingChange,
-            type = entity.type
         )
     }
 
-    override fun mapToEntity(domainModel: Film): FilmCacheEntity {
-        return FilmCacheEntity(
-            filmId = domainModel.filmId,
-            nameRu = domainModel.nameRu,
-            nameEn = domainModel.nameEn,
-            year = domainModel.year,
-            filmLength = domainModel.filmLength,
-            rating = domainModel.rating,
-            ratingVoteCount = domainModel.ratingVoteCount,
-            posterUrl = domainModel.posterUrl,
-            countries = domainModel.countries,
-            genres = domainModel.genres,
-            posterUrlPreview = domainModel.posterUrlPreview,
-            ratingChange = domainModel.ratingChange,
-            type = domainModel.type
-        )
-    }
-    fun mapFromEntityList(entities:List<FilmCacheEntity>):List<Film>{
-        return entities.map{ mapFromEntity(it)}
+    override fun mapToEntity(domainModel: Film): FilmCache {
+        TODO("Not yet implemented")
     }
 }

@@ -2,17 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_film.xml"
-    app:startDestination="@id/randomFilmFragment">
+    android:id="@+id/filmFragment"
+    app:startDestination="@id/filmFragment2">
 
     <fragment
-        android:id="@+id/filmFragment"
+        android:id="@+id/filmFragment2"
         android:name="android.watch_movie.ui.fragments.FilmFragment"
         android:label="FilmFragment"
         tools:layout="@layout/fragment_films"/>
-    <fragment
-        android:id="@+id/randomFilmFragment"
-        android:name="android.watch_movie.ui.fragments.RandomFilmFragment"
-        android:label="RandomFilmFragment"
-        tools:layout="@layout/random_fragment_film"/>
 </navigation>

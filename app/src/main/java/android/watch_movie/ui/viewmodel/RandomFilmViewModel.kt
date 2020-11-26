@@ -1,10 +1,8 @@
 package android.watch_movie.ui.viewmodel
 
-import android.util.Log
 import android.watch_movie.model.Film
 import android.watch_movie.repository.RandomFilmRepository
-import android.watch_movie.ui.viewmodel.RandomFilmStateEvent.GetFilmsEvent
-import android.watch_movie.ui.viewmodel.RandomFilmStateEvent.ReplaceRandomEntity
+import android.watch_movie.ui.viewmodel.RandomFilmStateEvent.*
 import android.watch_movie.util.DataState
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -39,9 +37,12 @@ constructor(
                         }.launchIn(viewModelScope)
                 }
                 ReplaceRandomEntity -> {
-                    Log.e(TAG, "OnDetachFrag")
                     randomFilmRepository.delitAllRandomFilms()
                 }
+                DeliteFilmsCount -> {
+                    randomFilmRepository.delitFilmsCount()
+                }
+
 
             }
         }
@@ -54,4 +55,8 @@ sealed class RandomFilmStateEvent {
     object GetFilmsEvent : RandomFilmStateEvent()
 
     object ReplaceRandomEntity : RandomFilmStateEvent()
+
+    object DeliteFilmsCount : RandomFilmStateEvent()
+
+
 }

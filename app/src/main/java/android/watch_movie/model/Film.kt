@@ -10,26 +10,29 @@ data class Film(
     var countFilm: Int? = 0,
     var nameRu: String? = null,
     var nameEn: String? = null,
-    var year: String? = null,
-    var type: String? = null,
-    var filmLength: String? = null,
-    var countries: List<CountryNetworkEntity>? = null,
-    var genres: List<GenreNetworkEntity>? = null,
-    var rating: String? = null,
-    var ratingVoteCount: Int? = null,
+    var webUrl: String?=null,
     var posterUrl: String? = null,
     var posterUrlPreview: String? = null,
+    var year: String? = null,
+    var filmLength: String? = null,
+    var slogan:String? = null,
+    var description:String?= null,
+    var type: String? = null,
+    var ratingMpa:String? = null,
+    var ratingAgeLimits:Int?=null,
+    var premiereRu:String? = null,
+    var distributors:String? = null,
+    var premiereWorld:String? =null,
+    var premiereDigital:String?=null,
+    var premiereWorldCountry:String? = null,
+    var premiereDvd:String? = null,
+    var premiereBluRay:String? = null,
+    var distributorRelease:String? = null,
+    var countries: List<CountryNetworkEntity>? = null,
+    var genres: List<GenreNetworkEntity>? = null,
+    var facts:List<String>? = null,
+    var seasons:List<Int>? = null,
+    var rating: String? = null,
+    var ratingVoteCount: Int? = null,
     var ratingChange: Any? = null,
-)/*{
-    init {
-        val TAG = "Film"
-        if(nameEn == null)Log.e(TAG,"ERROR nameEn: $filmId $nameRu $nameEn")
-        if(ratingChange == null)Log.e(TAG,"ERROR ratingChange: $filmId $nameRu $ratingChange")
-        if(countries == null)Log.e(TAG,"ERROR countries: $filmId $nameRu $countries")
-        if(genres == null)Log.e(TAG,"ERROR genres: $filmId $nameRu $genres")
-
-
-
-
-    }
-}*/
+)

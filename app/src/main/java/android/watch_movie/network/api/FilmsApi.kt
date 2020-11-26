@@ -1,12 +1,9 @@
 package android.watch_movie.network.api
 
-import android.watch_movie.network.entity.FilterGCNetworkEntity
+import android.watch_movie.network.entity.DetailFilmEntity
+import android.watch_movie.network.entity.GenreIDNetworkEntity
 import android.watch_movie.network.entity.ListFilmsNetworkEntity
-import android.watch_movie.network.mapper.ListFilmsNetworkMapper
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface FilmsApi {
     @Headers("accept: application/json", "X-API-KEY: 6a891f6b-51bb-4aec-ab49-667e195f8a8e")
@@ -15,7 +12,7 @@ interface FilmsApi {
 
     @Headers("accept: application/json", "X-API-KEY: 6a891f6b-51bb-4aec-ab49-667e195f8a8e")
     @GET("api/v2.1/films/filters")
-    suspend fun getGenres(): FilterGCNetworkEntity
+    suspend fun getGenres(): GenreIDNetworkEntity
 
     @Headers("accept: application/json", "X-API-KEY: 6a891f6b-51bb-4aec-ab49-667e195f8a8e")
     @GET("api/v2.1/films/search-by-filters?")
@@ -35,6 +32,15 @@ interface FilmsApi {
         @Query("yearTo")
         yearTo: Int,
         @Query("page")
-        page: Int
-    ): ListFilmsNetworkEntity
+        page: Int,
+
+        ): ListFilmsNetworkEntity
+
+
+    @Headers("accept: application/json", "X-API-KEY: 6a891f6b-51bb-4aec-ab49-667e195f8a8e")
+    @GET("api/v2.1/films/{id}?append_to_response=BUDGET&append_to_response=RATING&append_to_response=REVIEW")
+    suspend fun getDetailsFilm(
+        @Path("id")
+        filmId: Int?,
+    ): DetailFilmEntity
 }

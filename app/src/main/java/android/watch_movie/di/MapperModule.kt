@@ -1,7 +1,7 @@
 package android.watch_movie.di
 
 import android.watch_movie.network.mapper.FilmNetworkMapper
-import android.watch_movie.network.mapper.FilterGCNetworkMapper
+import android.watch_movie.network.mapper.GenreIDNetworkMapper
 import android.watch_movie.network.mapper.GenreNetworkMapper
 import android.watch_movie.network.mapper.ListFilmsNetworkMapper
 import dagger.Module
@@ -23,6 +23,6 @@ object MapperModule {
     @Provides
     fun providesGenreNetworkMapper(
         genreNetworkMapper: GenreNetworkMapper
-    ): FilterGCNetworkMapper = FilterGCNetworkMapper(genreNetworkMapper)
+    ): GenreIDNetworkMapper = GenreIDNetworkMapper(genreNetworkMapper)
 
 }

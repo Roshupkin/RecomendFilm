@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/randomFilmFragment"
+    app:startDestination="@id/randomFilmFragment">
+
+    <fragment
+        android:id="@+id/randomFilmFragment"
+        android:name="android.watch_movie.ui.fragments.RandomFilmFragment"
+        android:label="RandomFilmFragment"
+        tools:layout="@layout/random_fragment_film">
+        <action
+            android:id="@+id/action_randomFilmFragment_to_detailFilmFragment"
+            app:destination="@id/detailFilmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFilmFragment"
+        android:name="android.watch_movie.ui.fragments.DetailFilmFragment"
+        android:label="DetailFilmFragment"
+        tools:layout="@layout/film_details_fragment"/>
+</navigation>

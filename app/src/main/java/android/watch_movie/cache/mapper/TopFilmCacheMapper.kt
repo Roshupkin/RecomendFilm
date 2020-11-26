@@ -1,18 +1,17 @@
 package android.watch_movie.cache.mapper
 
-import android.watch_movie.cache.entity.RandomFilmCache
+import android.watch_movie.cache.entity.TopFilmCache
 import android.watch_movie.model.Film
 import android.watch_movie.util.EntityMapper
 import javax.inject.Inject
 
 
-class RandomFilmCacheMapper
+class TopFilmCacheMapper
 @Inject
-constructor(): EntityMapper<RandomFilmCache, Film> {
-    override fun mapFromEntity(entity: RandomFilmCache):Film  {
+constructor(): EntityMapper<TopFilmCache, Film> {
+    override fun mapFromEntity(entity: TopFilmCache):Film  {
         return Film(
             filmId = entity.filmId,
-            countFilm = entity.countFilm,
             nameRu = entity.nameRu,
             nameEn = entity.nameEn,
             year = entity.year,
@@ -28,10 +27,9 @@ constructor(): EntityMapper<RandomFilmCache, Film> {
         )
     }
 
-    override fun mapToEntity(domainModel: Film): RandomFilmCache {
-        return RandomFilmCache(
+    override fun mapToEntity(domainModel: Film): TopFilmCache {
+        return TopFilmCache(
             filmId = domainModel.filmId,
-            countFilm = domainModel.countFilm,
             nameRu = domainModel.nameRu,
             nameEn = domainModel.nameEn,
             year = domainModel.year,
@@ -46,7 +44,7 @@ constructor(): EntityMapper<RandomFilmCache, Film> {
             type = domainModel.type
         )
     }
-    fun mapFromEntityList(entities:List<RandomFilmCache>):List<Film>{
+    fun mapFromEntityList(entities:List<TopFilmCache>):List<Film>{
         return entities.map{ mapFromEntity(it)}
     }
 }
