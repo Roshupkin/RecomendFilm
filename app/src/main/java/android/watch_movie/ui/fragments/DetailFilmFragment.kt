@@ -127,4 +127,5 @@ class DetailFilmFragment : Fragment(R.layout.film_details_fragment) {
     }
 
 
+    
 }
