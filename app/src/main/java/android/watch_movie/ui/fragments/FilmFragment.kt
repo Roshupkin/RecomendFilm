@@ -47,7 +47,7 @@ constructor(
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
                     filmListAdapter.submitList(dataState.data)
-                    Log.e(TAG, "ERRORtype: ${dataState.data}")
+                   // Log.e(TAG, "ERRORtype: ${dataState.data}")
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
