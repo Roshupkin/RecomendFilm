@@ -129,8 +129,6 @@ class DetailFilmFragment : Fragment(R.layout.film_details_fragment) {
         }.also {
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, it)
         }
-
-
     }
 
 
