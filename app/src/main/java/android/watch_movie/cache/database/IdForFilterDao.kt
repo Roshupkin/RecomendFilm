@@ -13,4 +13,8 @@ interface IdForFilterDao {
 
     @Query("SELECT * FROM genres ")
     suspend fun getIdGenresFilter(): List<GenresCache>
+
+    @Query("SELECT EXISTS(SELECT * FROM genres)")
+    suspend fun isExists(): Boolean
+
 }

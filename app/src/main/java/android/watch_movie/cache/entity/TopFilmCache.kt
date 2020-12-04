@@ -39,7 +39,8 @@ data class TopFilmCache(
     var countries: List<CountryNetworkEntity>? = null,
 
     @ColumnInfo(name = "genres")
-    var genres: List<GenreNetworkEntity>? = null,
+    var genres: List<String>? = null,
+    /*var genres: List<GenreCache>? = null,*/
 
     @ColumnInfo(name = "posterUrlPreview")
     var posterUrlPreview: String? = null,

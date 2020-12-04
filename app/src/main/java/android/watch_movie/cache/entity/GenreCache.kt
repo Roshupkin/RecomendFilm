@@ -2,11 +2,10 @@ package android.watch_movie.cache.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "genres")
-data class GenresCache(
+@Entity(tableName = "genre")
+data class GenreCache(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "idGenre")
     var idGenre: Int? = null,

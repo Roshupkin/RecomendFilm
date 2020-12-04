@@ -1,38 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="2dp"
-    app:cardPreventCornerOverlap="false"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:clickable="true"
     android:focusable="true"
-    >
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/name_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_name_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="8dp"
+            android:text="Матрица"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/text_description"
+            app:layout_constraintEnd_toStartOf="@+id/text_year"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/image_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="110dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintCircleRadius="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:text="РРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРррррррррррррррррр"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/text_name_title" />
+
+
+        <TextView
+            android:id="@+id/text_rating_kinopoisk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Рейтинг КП 6.8"
+            app:layout_constraintBottom_toTopOf="@+id/text_lenhgt"
+            app:layout_constraintEnd_toStartOf="@+id/text_description"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/text_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="1999"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_name_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/text_lenhgt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Длина 2.13"
+            app:layout_constraintBottom_toTopOf="@+id/text_ganre1"
+            app:layout_constraintEnd_toStartOf="@+id/text_description"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_rating_kinopoisk" />
+
+        <TextView
+            android:id="@+id/text_ganre1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="ganre 1"
+            app:layout_constraintBottom_toTopOf="@+id/text_ganre2"
+            app:layout_constraintEnd_toStartOf="@+id/text_description"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_lenhgt" />
+
+        <TextView
+            android:id="@+id/text_ganre2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="ganre 2"
+            app:layout_constraintBottom_toTopOf="@+id/text_ganre3"
+            app:layout_constraintEnd_toStartOf="@+id/text_description"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_ganre1" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
+            android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button4" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button5" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="6dp"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button4"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_ganre3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="ganre 3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_ganre2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

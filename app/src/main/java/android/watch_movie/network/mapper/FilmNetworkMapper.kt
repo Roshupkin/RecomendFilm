@@ -7,7 +7,9 @@ import javax.inject.Inject
 
 class FilmNetworkMapper
 @Inject
-constructor() : EntityMapper<FilmNetworkEntity, Film> {
+constructor(
+    private val genreNetworkMapper: GenreNetworkMapper
+) : EntityMapper<FilmNetworkEntity, Film> {
     override fun mapFromEntity(entity: FilmNetworkEntity): Film {
         return Film(
             filmId = entity.filmId,
@@ -34,7 +36,7 @@ constructor() : EntityMapper<FilmNetworkEntity, Film> {
             countries = entity.countries,
             facts = entity.facts,
             seasons = entity.seasons,
-            genres = entity.genres,
+            genres = entity.genres?.let { genreNetworkMapper.mapFromEntityList(it) },
             rating = entity.rating,
             ratingVoteCount = entity.ratingVoteCount,
             ratingChange = entity.ratingChange
@@ -68,7 +70,7 @@ constructor() : EntityMapper<FilmNetworkEntity, Film> {
             countries = domainModel.countries,
             facts = domainModel.facts,
             seasons = domainModel.seasons,
-            genres = domainModel.genres,
+            genres = domainModel.genres?.let { genreNetworkMapper.mapToEntityList(it) },
             rating = domainModel.rating,
             ratingVoteCount = domainModel.ratingVoteCount,
             ratingChange = domainModel.ratingChange

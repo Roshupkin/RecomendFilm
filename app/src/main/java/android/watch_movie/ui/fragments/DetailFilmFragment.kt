@@ -9,10 +9,8 @@ import android.watch_movie.ui.viewmodel.DetailFilmStateEvent
 import android.watch_movie.ui.viewmodel.DetailFilmViewModel
 import android.watch_movie.util.DataState
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -22,53 +20,51 @@ import kotlinx.android.synthetic.main.film_details_fragment.*
 import kotlinx.android.synthetic.main.fragment_films.progress_bar
 
 @AndroidEntryPoint
-class DetailFilmFragment : Fragment(R.layout.film_details_fragment) {
+class DetailFilmFragment : Fragment( R.layout.film_details_fragment) {
     private val viewModule: DetailFilmViewModel by viewModels()
-    private var callback: OnBackPressedCallback? = null
-   // val youTubeFragment = YouTubeCastomFragment()
+private val youtubeFragment = YouTubeCastomFragment()
 
     val TAG = "DetailFilmFragment"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.e(TAG, (this.arguments?.getInt("itemFilm") ?: 324).toString())
         viewModule.id = this.arguments?.getInt("itemFilm") ?: 324
         subscribeObserver()
         viewModule.setStateEvent(DetailFilmStateEvent.GetFilmsEvent)
-        backPressed()
 
-        val youtubefragment =
-            activity?.fragmentManager?.findFragmentById(R.id.youtube_fragment) as YouTubePlayerFragment
+        /* val youtubefragment =
+             activity?.fragmentManager?.findFragmentById(R.id.youtube_fragment) as YouTubePlayerFragment
 
-        youtubefragment.initialize(
-            "AIzaSyCnL67LXRQ-5EN5K4Dv5tedN-T0-L1TmsI",
-            object : YouTubePlayer.OnInitializedListener {
+         youtubefragment.initialize(
+             "AIzaSyCnL67LXRQ-5EN5K4Dv5tedN-T0-L1TmsI",
+             object : YouTubePlayer.OnInitializedListener {
 
-                override fun onInitializationSuccess(
-                    provaider: YouTubePlayer.Provider?,
-                    player: YouTubePlayer,
-                    wasRestored: Boolean
-                ) {
-                    player.loadVideo("Gc3Xjy9292c")
-                }
-                override fun onInitializationFailure(
-                    provaider: YouTubePlayer.Provider?,
-                    error: YouTubeInitializationResult?
-                ) {
-                }
-            })
+                 override fun onInitializationSuccess(
+                     provaider: YouTubePlayer.Provider?,
+                     player: YouTubePlayer,
+                     wasRestored: Boolean
+                 ) {
+                     player.loadVideo("Gc3Xjy9292c")
+                 }
+                 override fun onInitializationFailure(
+                     provaider: YouTubePlayer.Provider?,
+                     error: YouTubeInitializationResult?
+                 ) {
+                 }
+             })*/
 
-     /*   activity?.fragmentManager?.beginTransaction()?.add(R.id.youtube_fragment, youTubeFragment)
-            ?.commit()
-*/    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        val youtubefragment =
-            activity?.fragmentManager?.findFragmentById(R.id.youtube_fragment) as YouTubePlayerFragment
-
-        activity?.fragmentManager?.beginTransaction()?.remove(youtubefragment)
-            ?.commit()
+           activity?.fragmentManager?.beginTransaction()?.add(R.id.youtube_fragment, youtubeFragment)
+               ?.commit()
     }
+      override fun onDestroyView() {
+          super.onDestroyView()
+         /* val youtubefragment =
+              activity?.fragmentManager?.findFragmentById(R.id.youtube_fragment) as YouTubePlayerFragment*/
 
+          activity?.fragmentManager?.beginTransaction()?.remove(youtubeFragment)
+              ?.commit()
+      }
 
     private fun subscribeObserver() {
         viewModule.dataState.observe(viewLifecycleOwner, { dataState ->
@@ -116,21 +112,4 @@ class DetailFilmFragment : Fragment(R.layout.film_details_fragment) {
         else progress_bar.visibility = View.GONE
 
     }
-
-    private fun backPressed() {
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                Navigation.findNavController(
-                    requireActivity(),
-                    R.id.fragment_container
-                ).popBackStack()
-                Log.e(TAG, "BackPressed")
-            }
-        }.also {
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, it)
-        }
-    }
-
-
-    
 }

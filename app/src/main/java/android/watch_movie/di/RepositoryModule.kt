@@ -17,6 +17,7 @@ import android.watch_movie.repository.FilmRepository
 import android.watch_movie.repository.RandomFilmRepository
 import android.watch_movie.ui.fragments.DetailFilmFragment
 import android.watch_movie.util.NetworkCheck
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,6 +61,7 @@ object RepositoryModule {
         @ApplicationContext context: Context,
         idForFilterDao: IdForFilterDao,
         randomFilmDao: RandomFilmDao,
+        gson:Gson
     ): RandomFilmRepository = RandomFilmRepository(
         filmsDao,
         filmNetworkMapper,
@@ -72,7 +74,8 @@ object RepositoryModule {
         networkCheck,
         context,
         idForFilterDao,
-        randomFilmDao
+        randomFilmDao,
+        gson
     )
 
     @Singleton

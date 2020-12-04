@@ -41,7 +41,7 @@ data class RandomFilmCache(
     var countries: List<CountryNetworkEntity>? = null,
 
     @ColumnInfo(name = "genres")
-    var genres: List<GenreNetworkEntity>? = null,
+    var genres: List<String>? = null,
 
     @ColumnInfo(name = "posterUrlPreview")
     var posterUrlPreview: String? = null,
@@ -50,5 +50,8 @@ data class RandomFilmCache(
     var ratingChange: Any? = null,
 
     @ColumnInfo(name = "type")
-    var type: String? = null
+    var type: String? = null,
+
+    @ColumnInfo(name = "description")
+    var description: String? = null
 )

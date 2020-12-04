@@ -1,5 +1,8 @@
 package android.watch_movie.network.entity
 
-data class ExternalId (
-   val imdbId:String?=null
+import com.google.gson.annotations.Expose
+
+data class ExternalId(
+   @Expose
+   val imdbId: String?
 )

@@ -34,10 +34,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <fragment
+    <!--android:name="com.google.android.youtube.player.YouTubePlayerFragment"-->
+    <FrameLayout
         android:id="@+id/youtube_fragment"
-        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"

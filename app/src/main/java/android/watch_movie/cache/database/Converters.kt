@@ -1,7 +1,6 @@
 package android.watch_movie.cache.database
 
 import android.watch_movie.network.entity.CountryNetworkEntity
-import android.watch_movie.network.entity.GenreNetworkEntity
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -10,7 +9,7 @@ import java.lang.reflect.Type
 
 class Converters {
 
-    @TypeConverter
+    /*@TypeConverter
     fun fromGenres(genres: List<GenreNetworkEntity>?): String = Gson().toJson(genres)
 
     @TypeConverter
@@ -18,7 +17,16 @@ class Converters {
         val listType: Type = object : TypeToken<List<GenreNetworkEntity>>() {}.type
         return Gson().fromJson(genresString, listType)
     }
+*/
+    @TypeConverter
+    fun fromListOfStrings(listOfStrings:List<String>):String{
+        return listOfStrings.joinToString (",")
+    }
 
+    @TypeConverter
+    fun toListOfString(flatStringsList:String):List<String>{
+        return flatStringsList.split(",")
+    }
 
     @TypeConverter
     fun fromCountris(countries: List<CountryNetworkEntity>): String = Gson().toJson(countries)

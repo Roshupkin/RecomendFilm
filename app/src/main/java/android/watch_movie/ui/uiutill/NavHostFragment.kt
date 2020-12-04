@@ -1,8 +1,6 @@
 package android.watch_movie.ui.uiutill
 
 import android.content.Context
-import androidx.navigation.Navigator
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,7 +17,9 @@ class NavHostFragment : NavHostFragment() {
         childFragmentManager.fragmentFactory = fragmentFactory
     }
 
-    internal fun create(navGraphId: Int): NavHostFragment {
-        return NavHostFragment.create(navGraphId)
+    companion object {
+        fun create(navGraphId: Int): NavHostFragment {
+            return NavHostFragment.create(navGraphId)
+        }
     }
 }

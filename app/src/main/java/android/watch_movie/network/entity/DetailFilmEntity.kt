@@ -7,21 +7,12 @@ data class DetailFilmEntity(
     @SerializedName("data")
     @Expose
     val dataFilm: FilmNetworkEntity? = null,
-
-    @SerializedName("externalId")
     @Expose
-    val externalId: ExternalId?= null ,
-
-    @SerializedName("budget")
+    val externalId: ExternalId?= null,
     @Expose
     val budget: BudgetNetworkEntity? = null,
-
-    @SerializedName("rating")
     @Expose
     val rating: RatingNetworkEntity? = null,
-
-    @SerializedName("review")
     @Expose
     val review: ReviewNetworkEntity? = null,
-
     )

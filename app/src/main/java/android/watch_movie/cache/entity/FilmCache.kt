@@ -79,7 +79,8 @@ data class FilmCache(
     var countries: List<CountryNetworkEntity>? = null,
 
     @ColumnInfo(name = "genres")
-    var genres: List<GenreNetworkEntity>? = null,
+    /*var genres: List<GenreCache>? = null,*/
+    var genres: List<String>? = null,
 
     @ColumnInfo(name = "facts")
     val facts: List<String>? = null,

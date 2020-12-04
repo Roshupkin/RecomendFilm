@@ -21,7 +21,7 @@ class DetailFilmRepository(
         try {
             if (networkCheck.isNetworkAvailable(context)) {
                 // TODO: 17.11.2020  
-                val film = filmsApi.getDetailsFilm(id)
+                val film = filmsApi.getAllInfoFilm(id)
                 emit(DataState.Success(film))
             } else {
                 Log.e(TAG, "Exception No internet connection ")

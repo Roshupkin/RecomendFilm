@@ -8,7 +8,9 @@ import javax.inject.Inject
 
 class TopFilmCacheMapper
 @Inject
-constructor(): EntityMapper<TopFilmCache, Film> {
+constructor(
+    private val genreCacheMapper: GenreCacheMapper
+): EntityMapper<TopFilmCache, Film> {
     override fun mapFromEntity(entity: TopFilmCache):Film  {
         return Film(
             filmId = entity.filmId,
@@ -17,7 +19,7 @@ constructor(): EntityMapper<TopFilmCache, Film> {
             year = entity.year,
             filmLength = entity.filmLength,
             countries = entity.countries,
-            genres = entity.genres,
+            /*genres = entity.genres?.let { genreCacheMapper.mapFromEntityList(it) },*/
             rating = entity.rating,
             ratingVoteCount = entity.ratingVoteCount,
             posterUrl = entity.posterUrl,
@@ -39,6 +41,7 @@ constructor(): EntityMapper<TopFilmCache, Film> {
             posterUrl = domainModel.posterUrl,
             countries = domainModel.countries,
             genres = domainModel.genres,
+           /* genres = domainModel.genres?.let { genreCacheMapper.mapToEntityList(it) },*/
             posterUrlPreview = domainModel.posterUrlPreview,
             ratingChange = domainModel.ratingChange,
             type = domainModel.type

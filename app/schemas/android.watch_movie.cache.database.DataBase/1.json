@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9be77456f6e54a3276b53195ddddd221",
+    "identityHash": "6a1adf1b71d154651c844a98339a639b",
     "entities": [
       {
         "tableName": "listfilms",
@@ -158,7 +158,7 @@
       },
       {
         "tableName": "random_film",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` INTEGER NOT NULL, `countFilm` INTEGER, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, PRIMARY KEY(`filmId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`filmId` INTEGER NOT NULL, `countFilm` INTEGER, `nameRu` TEXT, `nameEn` TEXT, `year` TEXT, `filmLength` TEXT, `rating` TEXT, `ratingVoteCount` INTEGER, `posterUrl` TEXT, `countries` TEXT, `genres` TEXT, `posterUrlPreview` TEXT, `ratingChange` TEXT, `type` TEXT, `description` TEXT, PRIMARY KEY(`filmId`))",
         "fields": [
           {
             "fieldPath": "filmId",
@@ -243,6 +243,12 @@
             "columnName": "type",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -253,12 +259,38 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "genre",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idGenre` INTEGER, `genre` TEXT, PRIMARY KEY(`idGenre`))",
+        "fields": [
+          {
+            "fieldPath": "idGenre",
+            "columnName": "idGenre",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genre",
+            "columnName": "genre",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idGenre"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9be77456f6e54a3276b53195ddddd221')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6a1adf1b71d154651c844a98339a639b')"
     ]
   }
 }

@@ -25,7 +25,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapter.Interaction {
+class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdapter.Interaction {
     private val TAG = "RandomFilmFragment"
     private val viewModule: RandomFilmViewModel by viewModels()
     lateinit var filmListAdapter: FilmListAdapter
@@ -42,28 +42,29 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapt
         subscreibeObsirevers()
         initRecyclerView()
         Log.e(TAG, "onViewCreated")
-
     }
 
     private fun subscreibeObsirevers() {
-
         viewModule.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
+                    isLoading = false
                     filmListAdapter.submitList(dataState.data)
                     //   Log.e(TAG, "ERRORtype: ${filmListAdapter.itemCount}")
                 }
                 is DataState.Loading -> {
                     displayProgressBar(true)
+                    isLoading = true
                 }
                 is DataState.HttpError -> {
                     displayProgressBar(false)
+                    isLoading = false
                     when (dataState.httpException.code()) {
                         401 -> displayError("Wrong or empty access token")
                         404 -> {
                             viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
-                            displayError("Films are not found")
+                            // displayError("Films are not found")
                         }
                         429 -> displayError("Too Many Requests. Limit 10 req/sec")
                         500 -> displayError("Exception on server")
@@ -71,6 +72,7 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapt
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
+                    isLoading = false
                     displayError(dataState.exceptionMessage)
                 }
             }
@@ -88,10 +90,8 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapt
 
     private fun displayProgressBar(isDisplayed: Boolean) {
         if (isDisplayed) {
-            isLoading = true
             progress_bar.visibility = View.VISIBLE
         } else {
-            isLoading = false
             progress_bar.visibility = View.GONE
         }
     }
@@ -111,15 +111,25 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapt
                 layoutManager.itemCount//Элементов в Recycler view по индексу - 20  Default
 
             val isNotLoading = !isLoading
-            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount /*- 3*/
+            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount - 4
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val shouldPaginate = isNotLoading && isAtLastItem && isNotAtBeginning && isScrolling
-            if (shouldPaginate || visibleItemCount < 8) {
+            /*Log.e(TAG, "$firstVisibleItemPosition")
+            Log.e(TAG, "$visibleItemCount")
+            Log.e(TAG, "$totalItemCount")*/
+
+            if (isAtLastItem)
+                displayProgressBar(true)
+            else
+                displayProgressBar(false)
+
+            if (shouldPaginate || visibleItemCount <= 1) {
                 viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
                 isScrolling = false
                 if (layoutManager.itemCount > 500)
                     viewModule.setStateEvent(RandomFilmStateEvent.DeliteFilmsCount)
             }
+
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -128,7 +138,6 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapt
                 isScrolling = true
             }
         }
-
     }
 
     private fun initRecyclerView() {
@@ -144,9 +153,9 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film),FilmListAdapt
     }
 
     override fun onItemSelected(position: Int, item: Film) {
-      //  Toast.makeText(context, "On Click !", Toast.LENGTH_SHORT).show()
+        //  Toast.makeText(context, "On Click !", Toast.LENGTH_SHORT).show()
         val bundle = bundleOf("itemFilm" to item.filmId)
-    findNavController().navigate(R.id.detailFilmFragment, bundle)
+        findNavController().navigate(R.id.detailFilmFragment, bundle)
     }
 
 }

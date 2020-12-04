@@ -12,7 +12,8 @@
         tools:layout="@layout/random_fragment_film">
         <action
             android:id="@+id/action_randomFilmFragment_to_detailFilmFragment"
-            app:destination="@id/detailFilmFragment" />
+            app:destination="@id/detailFilmFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/detailFilmFragment"

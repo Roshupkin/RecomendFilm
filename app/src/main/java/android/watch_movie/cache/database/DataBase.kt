@@ -1,16 +1,13 @@
 package android.watch_movie.cache.database
 
-import android.watch_movie.cache.entity.GenresCache
-import android.watch_movie.cache.entity.ListFilmsCache
-import android.watch_movie.cache.entity.RandomFilmCache
-import android.watch_movie.cache.entity.TopFilmCache
+import android.watch_movie.cache.entity.*
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @TypeConverters(Converters::class)
 @Database(
-    entities = [ListFilmsCache::class, TopFilmCache::class, GenresCache::class, RandomFilmCache::class],
+    entities = [ListFilmsCache::class, TopFilmCache::class, GenresCache::class, RandomFilmCache::class, GenreCache::class],
     version = 1)
 abstract class DataBase : RoomDatabase() {
 
