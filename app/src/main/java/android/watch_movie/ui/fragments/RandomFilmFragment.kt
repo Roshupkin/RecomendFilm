@@ -4,7 +4,7 @@ import android.bignerdranch.kosmos.R
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.watch_movie.adapters.FilmListAdapter
+import android.watch_movie.adapters.RandomFilmListAdapter
 import android.watch_movie.model.Film
 import android.watch_movie.ui.viewmodel.RandomFilmStateEvent
 import android.watch_movie.ui.viewmodel.RandomFilmViewModel
@@ -25,16 +25,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdapter.Interaction {
+class RandomFilmFragment : Fragment(R.layout.random_fragment_film), RandomFilmListAdapter.Interaction {
     private val TAG = "RandomFilmFragment"
-    private val viewModule: RandomFilmViewModel by viewModels()
-    lateinit var filmListAdapter: FilmListAdapter
+    private val viewModel: RandomFilmViewModel by viewModels()
+    lateinit var randomFilmListAdapter: RandomFilmListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModule.setStateEvent(RandomFilmStateEvent.ReplaceRandomEntity)
-        viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
+        viewModel.setStateEvent(RandomFilmStateEvent.ReplaceRandomEntity)
+        viewModel.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,13 +45,12 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdap
     }
 
     private fun subscreibeObsirevers() {
-        viewModule.dataState.observe(viewLifecycleOwner, { dataState ->
+        viewModel.dataState.observe(viewLifecycleOwner, { dataState ->
             when (dataState) {
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
                     isLoading = false
-                    filmListAdapter.submitList(dataState.data)
-                    //   Log.e(TAG, "ERRORtype: ${filmListAdapter.itemCount}")
+                    randomFilmListAdapter.submitList(dataState.data)
                 }
                 is DataState.Loading -> {
                     displayProgressBar(true)
@@ -63,8 +62,7 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdap
                     when (dataState.httpException.code()) {
                         401 -> displayError("Wrong or empty access token")
                         404 -> {
-                            viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
-                            // displayError("Films are not found")
+                            viewModel.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
                         }
                         429 -> displayError("Too Many Requests. Limit 10 req/sec")
                         500 -> displayError("Exception on server")
@@ -106,17 +104,17 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdap
                 layoutManager.findFirstVisibleItemPosition()// первый элемент по индексу - 0 Default
             val visibleItemCount =
                 layoutManager.childCount//всего существующих контейнеров - 10 Default
-            //  Log.e(TAG, "visibleItemCount: $visibleItemCount")
             val totalItemCount =
                 layoutManager.itemCount//Элементов в Recycler view по индексу - 20  Default
 
             val isNotLoading = !isLoading
-            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount - 4
+            /*Item that the download starts with*/
+            val isLoadedItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount - 4
+            /*Lats item in list*/
+            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val shouldPaginate = isNotLoading && isAtLastItem && isNotAtBeginning && isScrolling
-            /*Log.e(TAG, "$firstVisibleItemPosition")
-            Log.e(TAG, "$visibleItemCount")
-            Log.e(TAG, "$totalItemCount")*/
+            val shouldPaginate = isNotLoading && isLoadedItem && isNotAtBeginning && isScrolling
 
             if (isAtLastItem)
                 displayProgressBar(true)
@@ -124,10 +122,11 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdap
                 displayProgressBar(false)
 
             if (shouldPaginate || visibleItemCount <= 1) {
-                viewModule.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
+                viewModel.setStateEvent(RandomFilmStateEvent.GetFilmsEvent)
                 isScrolling = false
+                /*if item in Recycler View >500 then deletes several movies based on the deletion counter */
                 if (layoutManager.itemCount > 500)
-                    viewModule.setStateEvent(RandomFilmStateEvent.DeliteFilmsCount)
+                    viewModel.setStateEvent(RandomFilmStateEvent.DeletFilmsCount)
             }
 
         }
@@ -146,16 +145,25 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), FilmListAdap
             val topSpacingItemDecoratio = TopSpacingItemDecoratio(20)
             addItemDecoration(topSpacingItemDecoratio)
             addOnScrollListener(this@RandomFilmFragment.scrollListener)
-            filmListAdapter = FilmListAdapter(this@RandomFilmFragment)
-            adapter = filmListAdapter
+            randomFilmListAdapter = RandomFilmListAdapter(this@RandomFilmFragment)
+            adapter = randomFilmListAdapter
 
         }
     }
 
     override fun onItemSelected(position: Int, item: Film) {
-        //  Toast.makeText(context, "On Click !", Toast.LENGTH_SHORT).show()
-        val bundle = bundleOf("itemFilm" to item.filmId)
+        val bundle = bundleOf("itemFilm" to item.filmID)
         findNavController().navigate(R.id.detailFilmFragment, bundle)
+    }
+
+    override fun onSaveFavorites(isSave: Boolean, item: Film) {
+        Log.e(TAG,"$isSave       ssss      ${item}")
+        viewModel.setFavorites(isSave,item)
+
+    }
+
+    override fun onSetEvaluated(item: Film) {
+        viewModel.setEvaluated(item)
     }
 
 }

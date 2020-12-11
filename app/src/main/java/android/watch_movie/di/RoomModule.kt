@@ -1,10 +1,7 @@
 package android.watch_movie.di
 
 import android.content.Context
-import android.watch_movie.cache.database.DataBase
-import android.watch_movie.cache.database.FilmsDao
-import android.watch_movie.cache.database.IdForFilterDao
-import android.watch_movie.cache.database.RandomFilmDao
+import android.watch_movie.cache.database.*
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -38,6 +35,10 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideIdForFilterDAO(dataBase: DataBase): IdForFilterDao = dataBase.idForFilterDao()
+    fun provideIDByFilterDAO(dataBase: DataBase): IDByFilterDao = dataBase.iDByFilterDao()
+
+    @Singleton
+    @Provides
+    fun provideProfileDAO(dataBase: DataBase): ProfileDao = dataBase.profileDao()
 
 }

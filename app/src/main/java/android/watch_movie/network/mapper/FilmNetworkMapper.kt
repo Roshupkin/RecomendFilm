@@ -12,7 +12,7 @@ constructor(
 ) : EntityMapper<FilmNetworkEntity, Film> {
     override fun mapFromEntity(entity: FilmNetworkEntity): Film {
         return Film(
-            filmId = entity.filmId,
+            filmID = entity.filmId,
             nameRu = entity.nameRu,
             nameEn = entity.nameEn,
             webUrl = entity.webUrl,
@@ -46,7 +46,7 @@ constructor(
 
     override fun mapToEntity(domainModel: Film): FilmNetworkEntity {
         return FilmNetworkEntity(
-            filmId = domainModel.filmId,
+            filmId = domainModel.filmID,
             nameRu = domainModel.nameRu,
             nameEn = domainModel.nameEn,
             webUrl = domainModel.webUrl,

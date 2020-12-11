@@ -20,15 +20,12 @@ constructor() {
             if (capabilities != null) {
                 when {
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                     //   Log.e(TAG, "NetworkCapabilities.TRANSPORT_CELLULAR   true")
                         return true
                     }
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                   //     Log.e(TAG, "NetworkCapabilities.TRANSPORT_WIFI  true")
                         return true
                     }
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                     //   Log.e(TAG, "NetworkCapabilities.TRANSPORT_ETHERNET   true")
                         return true
                     }
                 }
@@ -36,13 +33,10 @@ constructor() {
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
-                Log.e(TAG,
-                    "activeNetworkInfo.isConnected   true")
                 return true
             }
         }
         Log.e(TAG, "Internet Connection   false ")
         return false
     }
-
 }

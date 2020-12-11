@@ -1,5 +1,6 @@
 package android.watch_movie.di
 
+import android.util.Log
 import android.watch_movie.network.api.FilmsApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,12 +12,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
 object RetrofitModule {
+    val TAG = "Retrofit"
     @Singleton
     @Provides
     fun provideGsonBulder(): Gson {
@@ -28,7 +29,6 @@ object RetrofitModule {
     fun provideHttpInterceptor(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()

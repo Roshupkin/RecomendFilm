@@ -1,12 +1,19 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-         Customize your theme here.
+        Customize your theme here.
         <item name="colorPrimary">@color/colorBasicRed</item>
-      <!--  <item name="colorPrimaryDark">@color/colorBasicRed</item>-->
+        <!--  <item name="colorPrimaryDark">@color/colorBasicRed</item>-->
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">#000000</item>
         <item name="elevationOverlayEnabled">true</item>
+        <item name="android:colorButtonNormal">@color/colorWhite</item>
+    </style>
+
+    <style name="ButtonIcon" parent="Widget.MaterialComponents.Button">
+        <item name="itemRippleColor">@color/colorPrimaryDark</item>
+        <item name="tabUnboundedRipple">true</item>
+
 
     </style>
 

@@ -46,7 +46,7 @@ fun BottomNavigationView.setupWithNavController(
             containerId
         )
 
-        // Obtain its id
+        // Obtain its filmID
         val graphId = navHostFragment.navController.graph.id
 
         if (index == 0) {

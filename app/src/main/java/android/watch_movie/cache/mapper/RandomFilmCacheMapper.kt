@@ -9,19 +9,17 @@ import javax.inject.Inject
 class RandomFilmCacheMapper
 @Inject
 constructor(
-    private val genreCacheMapper: GenreCacheMapper
 ): EntityMapper<RandomFilmCache, Film> {
     override fun mapFromEntity(entity: RandomFilmCache):Film  {
         return Film(
-            filmId = entity.filmId,
-            countFilm = entity.countFilm,
+            filmID = entity.filmID,
+            loadCount = entity.loadCount,
             nameRu = entity.nameRu,
             nameEn = entity.nameEn,
             year = entity.year,
             filmLength = entity.filmLength,
             countries = entity.countries,
             genres = entity.genres,
-            /*genres = entity.genres?.let { genreCacheMapper.mapFromEntityList(it) },*/
             rating = entity.rating,
             ratingVoteCount = entity.ratingVoteCount,
             posterUrl = entity.posterUrl,
@@ -34,8 +32,8 @@ constructor(
 
     override fun mapToEntity(domainModel: Film): RandomFilmCache {
         return RandomFilmCache(
-            filmId = domainModel.filmId,
-            countFilm = domainModel.countFilm,
+            filmID = domainModel.filmID,
+            loadCount = domainModel.loadCount,
             nameRu = domainModel.nameRu,
             nameEn = domainModel.nameEn,
             year = domainModel.year,
@@ -45,7 +43,6 @@ constructor(
             posterUrl = domainModel.posterUrl,
             countries = domainModel.countries,
             genres = domainModel.genres,
-            /*genres = domainModel.genres?.let { genreCacheMapper.mapToEntityList(it) },*/
             posterUrlPreview = domainModel.posterUrlPreview,
             ratingChange = domainModel.ratingChange,
             type = domainModel.type,

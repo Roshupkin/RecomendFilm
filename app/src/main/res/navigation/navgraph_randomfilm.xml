@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFilmFragment"
-        android:name="android.watch_movie.ui.fragments.DetailFilmFragment"
+        android:name="android.watch_movie.ui.fragments.DetaildFilmFragment"
         android:label="DetailFilmFragment"
         tools:layout="@layout/film_details_fragment"/>
 </navigation>

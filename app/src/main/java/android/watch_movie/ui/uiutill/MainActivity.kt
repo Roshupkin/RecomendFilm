@@ -2,12 +2,9 @@ package android.watch_movie.ui.uiutill
 
 import android.bignerdranch.kosmos.R
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.aaglobal.jnc_playground.extensions.setupWithNavController
 
 import com.google.android.material.bottomnavigation.BottomNavigationView

@@ -11,12 +11,12 @@ interface RandomFilmDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertRandomFilm(filmEntity: RandomFilmCache): Long
 
-    @Query("SELECT * FROM random_film ORDER BY countFilm ")
+    @Query("SELECT * FROM random_film ORDER BY loadCount ")
     suspend fun getAllRandomFilms(): List<RandomFilmCache>
 
     @Query("DELETE FROM random_film")
     suspend fun deleteAllRandomFilms()
 
-    @Query("DELETE from random_film WHERE countFilm IN (:count)")
-    suspend fun delitFilmsForId(count: Int)
+    @Query("DELETE from random_film WHERE loadCount IN (:loadCount)")
+    suspend fun deletFilmsByLoadCount(loadCount: Int)
 }

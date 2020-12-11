@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "genre")
-data class GenreCache(
+@Entity(tableName = "genres")
+data class GenresIDCache(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "idGenre")
     var idGenre: Int? = null,

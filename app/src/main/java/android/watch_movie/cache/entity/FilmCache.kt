@@ -1,7 +1,6 @@
 package android.watch_movie.cache.entity
 
 import android.watch_movie.network.entity.CountryNetworkEntity
-import android.watch_movie.network.entity.GenreNetworkEntity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,10 +8,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "film")
 data class FilmCache(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "filmId")
-    var filmId: Int,
+    @ColumnInfo(name = "filmID")
+    var filmID: Int,
 
-    @ColumnInfo(name = "countFilm")
+    @ColumnInfo(name = "loadCount")
     var countFilm: Int? = 0,
 
     @ColumnInfo(name = "nameRu")
@@ -79,7 +78,6 @@ data class FilmCache(
     var countries: List<CountryNetworkEntity>? = null,
 
     @ColumnInfo(name = "genres")
-    /*var genres: List<GenreCache>? = null,*/
     var genres: List<String>? = null,
 
     @ColumnInfo(name = "facts")

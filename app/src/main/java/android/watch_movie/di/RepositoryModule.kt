@@ -2,22 +2,19 @@ package android.watch_movie.di
 
 import android.content.Context
 import android.watch_movie.cache.database.FilmsDao
-import android.watch_movie.cache.database.IdForFilterDao
+import android.watch_movie.cache.database.IDByFilterDao
+import android.watch_movie.cache.database.ProfileDao
 import android.watch_movie.cache.database.RandomFilmDao
-import android.watch_movie.cache.mapper.GenresCacheMapper
-import android.watch_movie.cache.mapper.RandomFilmCacheMapper
-import android.watch_movie.cache.mapper.TopFilmCacheMapper
+import android.watch_movie.cache.mapper.*
 import android.watch_movie.network.api.FilmsApi
 import android.watch_movie.network.mapper.FilmNetworkMapper
-import android.watch_movie.network.mapper.GenreIDNetworkMapper
-import android.watch_movie.network.mapper.GenreNetworkMapper
+import android.watch_movie.network.mapper.GenresIDNetworkMapper
 import android.watch_movie.network.mapper.ListFilmsNetworkMapper
-import android.watch_movie.repository.DetailFilmRepository
-import android.watch_movie.repository.FilmRepository
+import android.watch_movie.repository.DetaildFilmRepository
 import android.watch_movie.repository.RandomFilmRepository
-import android.watch_movie.ui.fragments.DetailFilmFragment
+import android.watch_movie.repository.TopFilmRepository
+import android.watch_movie.util.Constans
 import android.watch_movie.util.NetworkCheck
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,19 +28,23 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideFilmsRepository(
+    fun provideTopFilmsRepository(
         filmsGet: FilmsApi,
-        filmNetworkMapper: FilmNetworkMapper,
         filmsDao: FilmsDao,
         filmCacheMapper: TopFilmCacheMapper,
         listFilmsNetworkMapper: ListFilmsNetworkMapper,
-
-        ): FilmRepository = FilmRepository(
+        profileDao: ProfileDao,
+        favoritesCacheMapper: FavoritesCacheMapper,
+        evaluatedCacheMapper: EvaluatedCacheMapper
+    ): TopFilmRepository = TopFilmRepository(
         filmsDao,
-        filmNetworkMapper,
         filmCacheMapper,
         filmsGet,
-        listFilmsNetworkMapper
+        listFilmsNetworkMapper,
+        profileDao,
+        favoritesCacheMapper,
+        evaluatedCacheMapper
+
     )
 
     @Singleton
@@ -51,31 +52,33 @@ object RepositoryModule {
     fun provideRandomFilmsRepository(
         filmsGet: FilmsApi,
         filmNetworkMapper: FilmNetworkMapper,
-        filmsDao: FilmsDao,
         randomFilmCacheMapper: RandomFilmCacheMapper,
         listFilmsNetworkMapper: ListFilmsNetworkMapper,
         genresCacheMapper: GenresCacheMapper,
-        genreNetworkMapper: GenreNetworkMapper,
-        filterGCNetworkMapper: GenreIDNetworkMapper,
+        filterGCNetworkMapper: GenresIDNetworkMapper,
         networkCheck: NetworkCheck,
         @ApplicationContext context: Context,
-        idForFilterDao: IdForFilterDao,
+        IDByFilterDao: IDByFilterDao,
         randomFilmDao: RandomFilmDao,
-        gson:Gson
+        constans: Constans,
+        profileDao: ProfileDao,
+        favoritesCacheMapper: FavoritesCacheMapper,
+        evaluatedCacheMapper: EvaluatedCacheMapper
     ): RandomFilmRepository = RandomFilmRepository(
-        filmsDao,
         filmNetworkMapper,
         randomFilmCacheMapper,
         filmsGet,
         listFilmsNetworkMapper,
         genresCacheMapper,
-        genreNetworkMapper,
         filterGCNetworkMapper,
         networkCheck,
         context,
-        idForFilterDao,
+        IDByFilterDao,
         randomFilmDao,
-        gson
+        constans,
+        profileDao,
+        favoritesCacheMapper,
+        evaluatedCacheMapper
     )
 
     @Singleton
@@ -84,7 +87,7 @@ object RepositoryModule {
         filmGet: FilmsApi,
         networkCheck: NetworkCheck,
         @ApplicationContext context: Context
-    ): DetailFilmRepository = DetailFilmRepository(filmGet, networkCheck, context)
+    ): DetaildFilmRepository = DetaildFilmRepository(filmGet, networkCheck, context)
 
 
 }

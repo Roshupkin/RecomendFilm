@@ -1,7 +1,7 @@
 package android.watch_movie.ui.viewmodel
 
 import android.watch_movie.model.Film
-import android.watch_movie.repository.FilmRepository
+import android.watch_movie.repository.TopFilmRepository
 import android.watch_movie.ui.viewmodel.FilmStateEvent.GetFilmsEvent
 import android.watch_movie.ui.viewmodel.FilmStateEvent.None
 import android.watch_movie.util.DataState
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class FilmViewModule
 @ViewModelInject
 constructor(
-    private val filmRepository: FilmRepository,
+    private val topFilmRepository: TopFilmRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _dataState: MutableLiveData<DataState<List<Film>>> = MutableLiveData()
@@ -30,7 +30,7 @@ constructor(
         viewModelScope.launch {
             when (filmStateEvent) {
                 is GetFilmsEvent -> {
-                    filmRepository.getFilms()
+                    topFilmRepository.getTopFilms()
                         .onEach { dataState ->
                             _dataState.value = dataState
 
@@ -43,10 +43,17 @@ constructor(
             }
         }
     }
+    fun setSaveFavorites(isSave: Boolean, item: Film) {
+        viewModelScope.launch { topFilmRepository.saveFavorites(isSave, item) }
 
+    }
+
+    fun setEvaluated(item: Film) {
+        viewModelScope.launch { topFilmRepository.setEvaluated(item) }
+    }
 
 }
-
+//MVI
 sealed class FilmStateEvent {
     object GetFilmsEvent : FilmStateEvent()
 

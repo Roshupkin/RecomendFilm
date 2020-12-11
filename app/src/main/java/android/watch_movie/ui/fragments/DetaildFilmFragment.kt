@@ -4,64 +4,41 @@ import android.bignerdranch.kosmos.R
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.watch_movie.network.entity.DetailFilmEntity
-import android.watch_movie.ui.viewmodel.DetailFilmStateEvent
-import android.watch_movie.ui.viewmodel.DetailFilmViewModel
+import android.watch_movie.network.entity.DetaildFilmEntity
+import android.watch_movie.ui.viewmodel.DetaildFilmStateEvent
+import android.watch_movie.ui.viewmodel.DetaildFilmViewModel
 import android.watch_movie.util.DataState
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.film_details_fragment.*
 import kotlinx.android.synthetic.main.fragment_films.progress_bar
-
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class DetailFilmFragment : Fragment( R.layout.film_details_fragment) {
-    private val viewModule: DetailFilmViewModel by viewModels()
+class DetaildFilmFragment : Fragment( R.layout.film_details_fragment) {
+    private val viewModule: DetaildFilmViewModel by viewModels()
 private val youtubeFragment = YouTubeCastomFragment()
 
     val TAG = "DetailFilmFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e(TAG, (this.arguments?.getInt("itemFilm") ?: 324).toString())
-        viewModule.id = this.arguments?.getInt("itemFilm") ?: 324
+
+        /*takes ID the film and requests for details*/
+        viewModule.filmID= this.arguments?.getInt("itemFilm")
+
         subscribeObserver()
-        viewModule.setStateEvent(DetailFilmStateEvent.GetFilmsEvent)
-
-        /* val youtubefragment =
-             activity?.fragmentManager?.findFragmentById(R.id.youtube_fragment) as YouTubePlayerFragment
-
-         youtubefragment.initialize(
-             "AIzaSyCnL67LXRQ-5EN5K4Dv5tedN-T0-L1TmsI",
-             object : YouTubePlayer.OnInitializedListener {
-
-                 override fun onInitializationSuccess(
-                     provaider: YouTubePlayer.Provider?,
-                     player: YouTubePlayer,
-                     wasRestored: Boolean
-                 ) {
-                     player.loadVideo("Gc3Xjy9292c")
-                 }
-                 override fun onInitializationFailure(
-                     provaider: YouTubePlayer.Provider?,
-                     error: YouTubeInitializationResult?
-                 ) {
-                 }
-             })*/
-
+        viewModule.setStateEvent(DetaildFilmStateEvent.GetFilmsEvent)
+        /*play YouTube Player*/
            activity?.fragmentManager?.beginTransaction()?.add(R.id.youtube_fragment, youtubeFragment)
                ?.commit()
     }
       override fun onDestroyView() {
           super.onDestroyView()
-         /* val youtubefragment =
-              activity?.fragmentManager?.findFragmentById(R.id.youtube_fragment) as YouTubePlayerFragment*/
-
+          /*destroy YouTube Player*/
           activity?.fragmentManager?.beginTransaction()?.remove(youtubeFragment)
               ?.commit()
       }
@@ -72,7 +49,7 @@ private val youtubeFragment = YouTubeCastomFragment()
                 is DataState.Loading -> {
                     displayProgressBar(true)
                 }
-                is DataState.Success<DetailFilmEntity> -> {
+                is DataState.Success<DetaildFilmEntity> -> {
                     text_film_name.text = dataState.data.dataFilm?.nameRu ?: "null blin"
                     context?.let {
                         Glide.with(it).load(dataState.data.dataFilm?.posterUrl).into(film_image)
@@ -83,7 +60,7 @@ private val youtubeFragment = YouTubeCastomFragment()
                     when (dataState.httpException.code()) {
                         401 -> displayError("Wrong or empty access token")
                         404 -> {
-                            viewModule.setStateEvent(DetailFilmStateEvent.GetFilmsEvent)
+                            viewModule.setStateEvent(DetaildFilmStateEvent.GetFilmsEvent)
                             displayError("Films are not found")
                         }
                         429 -> displayError("Too Many Requests. Limit 10 req/sec")

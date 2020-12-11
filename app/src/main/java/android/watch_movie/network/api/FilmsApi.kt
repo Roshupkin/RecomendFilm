@@ -1,8 +1,9 @@
 package android.watch_movie.network.api
 
-import android.watch_movie.network.entity.DetailFilmEntity
+import android.watch_movie.network.entity.DetaildFilmEntity
 import android.watch_movie.network.entity.GenresIDNetworkEntity
 import android.watch_movie.network.entity.ListFilmsNetworkEntity
+import androidx.lifecycle.LiveData
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -40,16 +41,16 @@ interface FilmsApi {
 
 
     @Headers("accept: application/json", "X-API-KEY: 6a891f6b-51bb-4aec-ab49-667e195f8a8e")
-    @GET("api/v2.1/films/{id}?append_to_response=BUDGET&append_to_response=RATING&append_to_response=REVIEW")
+    @GET("api/v2.1/films/{filmID}?append_to_response=BUDGET&append_to_response=RATING&append_to_response=REVIEW")
     suspend fun getAllInfoFilm(
-        @Path("id")
+        @Path("filmID")
         filmId: Int?,
-    ): DetailFilmEntity
+    ): DetaildFilmEntity
 
     @Headers("accept: application/json", "X-API-KEY: 6a891f6b-51bb-4aec-ab49-667e195f8a8e")
-    @GET("api/v2.1/films/{id}?append_to_response=")
+    @GET("api/v2.1/films/{filmID}?append_to_response=")
     suspend fun getFilmByID(
-        @Path("id")
+        @Path("filmID")
         filmId: Int?,
-    ): DetailFilmEntity
+    ): DetaildFilmEntity
 }

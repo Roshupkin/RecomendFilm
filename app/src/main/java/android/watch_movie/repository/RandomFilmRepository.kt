@@ -2,20 +2,21 @@ package android.watch_movie.repository
 
 import android.content.Context
 import android.util.Log
-import android.watch_movie.cache.database.FilmsDao
-import android.watch_movie.cache.database.IdForFilterDao
+import android.watch_movie.cache.database.IDByFilterDao
+import android.watch_movie.cache.database.ProfileDao
 import android.watch_movie.cache.database.RandomFilmDao
+import android.watch_movie.cache.mapper.EvaluatedCacheMapper
+import android.watch_movie.cache.mapper.FavoritesCacheMapper
 import android.watch_movie.cache.mapper.GenresCacheMapper
 import android.watch_movie.cache.mapper.RandomFilmCacheMapper
 import android.watch_movie.model.Film
 import android.watch_movie.network.api.FilmsApi
 import android.watch_movie.network.mapper.FilmNetworkMapper
-import android.watch_movie.network.mapper.GenreIDNetworkMapper
-import android.watch_movie.network.mapper.GenreNetworkMapper
+import android.watch_movie.network.mapper.GenresIDNetworkMapper
 import android.watch_movie.network.mapper.ListFilmsNetworkMapper
+import android.watch_movie.util.Constans
 import android.watch_movie.util.DataState
 import android.watch_movie.util.NetworkCheck
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -23,66 +24,66 @@ import java.io.IOException
 
 
 class RandomFilmRepository(
-    private val filmsDao: FilmsDao,
     private val filmNetworkMapper: FilmNetworkMapper,
     private val randomFilmCacheMapper: RandomFilmCacheMapper,
     private val filmsGet: FilmsApi,
     private val listFilmsNetworkMapper: ListFilmsNetworkMapper,
     private val genresCacheMapper: GenresCacheMapper,
-    private val genreNetworkMapper: GenreNetworkMapper,
-    private val genreIDNetworkMapper: GenreIDNetworkMapper,
+    private val genresIDNetworkMapper: GenresIDNetworkMapper,
     private val networkCheck: NetworkCheck,
     private val context: Context,
-    private val idForFilter: IdForFilterDao,
+    private val IDByFilter: IDByFilterDao,
     private val randomFilmDao: RandomFilmDao,
-    private val gson: Gson
+    private val constans: Constans,
+    private val profileDao: ProfileDao,
+    private val favoritesCacheMapper: FavoritesCacheMapper,
+    private val evaluatedCacheMapper: EvaluatedCacheMapper
 ) {
     private val TAG = "Random Repository"
 
-    private val PAGE_NUMBER = 1 /*(1..5).random()*/
-    private val TYPE = "FILM"//type FILM, ALL, TV_SHOWS
-    private var count = 0
-    private var countDel = 1
+    private val PAGE_NUMBER = 1 //Maybe add functional random page:   (1..5).random()
+    private val TYPE = "FILM"//Maybe type (FILM, ALL, TV_SHOWS)
+    private var loadCount = 0
+    private var countDeleted = 0
 
-    fun orderOfSortingString(): String {
+    fun orderOfSorting(): String {
         val random = (1..2).random()
-        //  Log.e(TAG, "random: $random")
         if (random == 1)
             return "RATING"
         return "NUM_VOTE"
-        //   return "YEAR"
+        //  Maybe add (return "YEAR")
     }
 
     suspend fun getRandomFilms(): Flow<DataState<List<Film>>> = flow {
         emit(DataState.Loading)
         try {
+            /*Random variables to request a random movies*/
             val MAX_YEAR_RAND = (2017..2020).random()
             val MIN_YEAR_RAND = (1960 until MAX_YEAR_RAND).random()
-            val GENRE_RAND = (1..19).random()
+            val GENRE_RAND = (1..18).random()
             val RATING_TO_RAND = (8..10).random()
             val RATING_FROM_RAND = (6 until RATING_TO_RAND).random()
 
-            /*  Log.e(TAG, "ORDER_OF_SORTING_RAND!: ${orderOfSortingString()}")
-                 Log.e(TAG, "RATING_FROM_RAND!: $RATING_FROM_RAND")
-                 Log.e(TAG, "RATING_FROM_RAND!: $RATING_TO_RAND")
-                 Log.e(TAG, "MIN_YEAR_RAND!: $MIN_YEAR_RAND")
-                 Log.e(TAG, "MAX_YEAR_RAND!: $MAX_YEAR_RAND")
-                 Log.e(TAG, "PAGE_NUMBER_RAND!: $PAGE_NUMBER")
-                 Log.e(TAG, "GENRE_RAND!: $GENRE_RAND")*/
 
             if (networkCheck.isNetworkAvailable(context)) {
-                if (!idForFilter.isExists()) {
-                    val networkFilms = filmsGet.getIDGenres()
-                    val listGenre = genreIDNetworkMapper.mapFromEntity(networkFilms)
+                /*Is exists list genres*/
+                if (!IDByFilter.isExists()) {
+                    /*Gets genre and cached*/
+                    val networkGenresID = filmsGet.getIDGenres()
+                    // TODO: 11.12.2020
+
+                    val listGenre = genresIDNetworkMapper.mapFromEntity(networkGenresID)
                     for (genre in listGenre.genres!!) {
-                        idForFilter.insertGenresFilter(genresCacheMapper.mapToEntity(genre))
+                        IDByFilter.insertGenresFilter(genresCacheMapper.mapToEntity(genre))
                     }
                 }
-                val randomGaere = idForFilter.getIdGenresFilter()[GENRE_RAND - 1]
-                val randomGaereId = genresCacheMapper.mapFromEntity(randomGaere).idGenre
+                /*Read genres list */
+                val genresID = IDByFilter.getIdGenresFilter()[GENRE_RAND]
+                val ganreID = genresCacheMapper.mapFromEntity(genresID).idGenre
+                /*Gets list film by random parameters*/
                 val networkRandomFilm = filmsGet.getFilmByFilters(
-                    genre = randomGaereId,
-                    order = orderOfSortingString(),
+                    genre = ganreID,
+                    order = orderOfSorting(),
                     type = TYPE,
                     ratingFrom = RATING_FROM_RAND,
                     ratingTo = RATING_TO_RAND,
@@ -92,34 +93,25 @@ class RandomFilmRepository(
                 )
                 val listRandomFilms =
                     listFilmsNetworkMapper.mapFromEntity(networkRandomFilm)
-                count++
+                /*Counts number of loaded requests*/
+                loadCount++
+                /*Gets details to find description and cached it*/
                 for (randomFilm in listRandomFilms.films!!) {
-
-                    val netRandomFilmForId = filmsGet.getFilmByID(randomFilm.filmId)
-                    val randomFilmForId =
-                        filmNetworkMapper.mapFromEntity(netRandomFilmForId.dataFilm!!)
-                    randomFilmForId.countFilm = count
-                    randomFilmForId.rating = randomFilm.rating
-                    val randomFilmCacheEntity = randomFilmCacheMapper.mapToEntity(randomFilmForId)
-                    randomFilmDao.insertRandomFilm(randomFilmCacheEntity)
+                    val detaildFilmNetwork = filmsGet.getFilmByID(randomFilm.filmID)
+                    val detaildFilm =
+                        filmNetworkMapper.mapFromEntity(detaildFilmNetwork.dataFilm!!)
+                    detaildFilm.loadCount = loadCount
+                    detaildFilm.rating = randomFilm.rating
+                    val detaildFilmCache =
+                        randomFilmCacheMapper.mapToEntity(detaildFilm)
+                    randomFilmDao.insertRandomFilm(detaildFilmCache)
                 }
 
-                /*  count++
-                  for (randomFilm in listRandomFilms.films!!) {
-                      randomFilm.countFilm = count
-                      val randomFilmCacheEntity = randomFilmCacheMapper.mapToEntity(randomFilm)
-                      randomFilmDao.insertRandomFilm(randomFilmCacheEntity)
-                  }*/
-                val cachedRandomFilm = randomFilmDao.getAllRandomFilms()
-                val randomFilms = randomFilmCacheMapper.mapFromEntityList(cachedRandomFilm)
-                /*for (film in randomFilms){
-                    val genres = film.genres
-                    for (genr in genres!!){
-                        val asdasd = gson.fromJson<String>(genr.genre)
-                    }
+                val cachedDetaildFilms = randomFilmDao.getAllRandomFilms()
+                val detaildFilms =
+                    randomFilmCacheMapper.mapFromEntityList(cachedDetaildFilms)
 
-                }*/
-                    emit(DataState.Success(randomFilms))
+                emit(DataState.Success(detaildFilms))
 
             } else {
                 Log.e(TAG, "Exception No internet connection ")
@@ -133,6 +125,7 @@ class RandomFilmRepository(
         } catch (e: Exception) {
             randomFilmDao.deleteAllRandomFilms()
             Log.e(TAG, "Exception message: ${e.message}")
+            Log.e(TAG, "Exception message: ${e.stackTraceToString()}")
             when (e) {
                 is IOException -> emit(DataState.Error("Network Failure"))
                 else -> emit(DataState.Error("Conversion Error"))
@@ -140,15 +133,30 @@ class RandomFilmRepository(
         }
     }
 
-    suspend fun delitAllRandomFilms() {
+    suspend fun deletAllRandomFilms() {
         randomFilmDao.deleteAllRandomFilms()
     }
 
-    suspend fun delitFilmsCount() {
-        randomFilmDao.delitFilmsForId(countDel)
-        countDel++
-        Log.e(TAG, "$countDel")
+    /*Deleted film by counter deleted*/
+    suspend fun deletFilmsCount() {
+        countDeleted++
+        randomFilmDao.deletFilmsByLoadCount(countDeleted)
+
     }
 
+    suspend fun saveFavorites(isSave: Boolean, item: Film) {
+        if (isSave) {
+            val favotritsFilmCache = favoritesCacheMapper.mapToEntity(item)
+            profileDao.insertFavoritrsFilm(favotritsFilmCache)
+        } else {
+            val filmID = item.filmID
+            profileDao.deleteFavoritesFilmsByID(filmID)
+        }
+    }
+
+    suspend fun setEvaluated(item: Film) {
+        val evaluatedFilm= evaluatedCacheMapper.mapToEntity(item)
+        profileDao.insertEvaluated(evaluatedFilm)
+    }
 
 }

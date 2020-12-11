@@ -1,6 +1,6 @@
 package android.watch_movie.di
 
-import android.watch_movie.cache.mapper.*
+
 import android.watch_movie.network.mapper.*
 import dagger.Module
 import dagger.Provides
@@ -19,9 +19,9 @@ object MapperModule {
 
     @Singleton
     @Provides
-    fun providesGenreIDNetworkMapper(
-        genrIDNetworkMapper: GenrIDNetworkMapper
-    ): GenreIDNetworkMapper = GenreIDNetworkMapper(genrIDNetworkMapper)
+    fun providesGenresIDNetworkMapper(
+        genreIDNetworkMapper: GenreIDNetworkMapper
+    ): GenresIDNetworkMapper = GenresIDNetworkMapper(genreIDNetworkMapper)
 
    @Singleton
     @Provides
@@ -29,20 +29,4 @@ object MapperModule {
         genreNetworkMapper: GenreNetworkMapper
     ): FilmNetworkMapper= FilmNetworkMapper(genreNetworkMapper)
 
-    @Singleton
-    @Provides
-    fun providesFilmCacheMapper(
-        genreCacheMapper: GenreCacheMapper
-    ): FilmCacheMapper = FilmCacheMapper(genreCacheMapper)
-    @Singleton
-    @Provides
-    fun providesRandomFilmCacheMapper(
-        genreCacheMapper: GenreCacheMapper
-    ): RandomFilmCacheMapper= RandomFilmCacheMapper( genreCacheMapper)
-
-    @Singleton
-    @Provides
-    fun providesTopFilmCacheMapper(
-        genreCacheMapper: GenreCacheMapper
-    ): TopFilmCacheMapper= TopFilmCacheMapper( genreCacheMapper)
 }

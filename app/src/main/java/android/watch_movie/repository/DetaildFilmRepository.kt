@@ -5,11 +5,12 @@ import android.util.Log
 import android.watch_movie.network.api.FilmsApi
 import android.watch_movie.util.DataState
 import android.watch_movie.util.NetworkCheck
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 
-class DetailFilmRepository(
+class DetaildFilmRepository(
     private val filmsApi: FilmsApi,
     private val networkCheck: NetworkCheck,
     private val context: Context,
@@ -19,18 +20,19 @@ class DetailFilmRepository(
         emit(DataState.Loading)
 
         try {
+            Log.e(TAG,"$id")
             if (networkCheck.isNetworkAvailable(context)) {
-                // TODO: 17.11.2020  
+                /*Get film by id */
                 val film = filmsApi.getAllInfoFilm(id)
                 emit(DataState.Success(film))
             } else {
-                Log.e(TAG, "Exception No internet connection ")
                 emit(DataState.Error("No internet connection"))
+                Log.e(TAG, "Exception No internet connection ")
             }
 
         } catch (e: HttpException) {
-            Log.e(TAG, "HTTPException message: ${e.message}   code: ${e.stackTrace}")
             emit(DataState.HttpError(e))
+            Log.e(TAG, "HTTPException message: ${e.message}   code: ${e.stackTrace}")
         } catch (e: Exception) {
             Log.e(TAG, "Exception message: ${e.message}")
             when (e) {

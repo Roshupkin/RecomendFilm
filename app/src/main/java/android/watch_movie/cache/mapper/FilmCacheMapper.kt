@@ -7,12 +7,11 @@ import javax.inject.Inject
 
 class FilmCacheMapper
 @Inject constructor(
-    private val genreCacheMapper: GenreCacheMapper
 ) : EntityMapper<FilmCache, Film> {
     override fun mapFromEntity(entity: FilmCache): Film {
         return Film(
-            filmId = entity.filmId,
-            countFilm = entity.countFilm,
+            filmID = entity.filmID,
+            loadCount = entity.countFilm,
             nameRu = entity.nameRu,
             nameEn = entity.nameEn,
             webUrl = entity.webUrl,
@@ -34,9 +33,6 @@ class FilmCacheMapper
             premiereBluRay = entity.premiereBluRay,
             distributorRelease = entity.distributorRelease,
             countries = entity.countries,
-/*
-            genres = entity.genres?.let { genreCacheMapper.mapFromEntityList(it) },
-*/
             genres = entity.genres,
             facts = entity.facts,
             seasons = entity.seasons,

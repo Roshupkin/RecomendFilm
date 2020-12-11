@@ -7,13 +7,15 @@ import androidx.room.TypeConverters
 
 @TypeConverters(Converters::class)
 @Database(
-    entities = [ListFilmsCache::class, TopFilmCache::class, GenresCache::class, RandomFilmCache::class, GenreCache::class],
-    version = 1)
+    entities = [TopFilmCache::class, GenresIDCache::class, RandomFilmCache::class, EvaluatedFilmCache::class, FavoritesFilmCache::class],
+    version = 1
+)
 abstract class DataBase : RoomDatabase() {
 
     abstract fun filmsDao(): FilmsDao
     abstract fun randomFilmDao(): RandomFilmDao
-    abstract fun idForFilterDao(): IdForFilterDao
+    abstract fun iDByFilterDao(): IDByFilterDao
+    abstract fun profileDao(): ProfileDao
 
     companion object {
         const val DATABASE_NAME: String = "films_database"

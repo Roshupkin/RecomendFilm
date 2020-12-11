@@ -7,7 +7,15 @@
 
     <fragment
         android:id="@+id/filmFragment2"
-        android:name="android.watch_movie.ui.fragments.FilmFragment"
+        android:name="android.watch_movie.ui.fragments.TopFilmFragment"
         android:label="FilmFragment"
-        tools:layout="@layout/fragment_films"/>
+        tools:layout="@layout/fragment_films">
+        <action
+            android:id="@+id/action_filmFragment2_to_detaildFilmFragment"
+            app:destination="@id/detaildFilmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detaildFilmFragment"
+        android:name="android.watch_movie.ui.fragments.DetaildFilmFragment"
+        android:label="DetaildFilmFragment" />
 </navigation>

@@ -4,15 +4,16 @@ import android.bignerdranch.kosmos.R
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.watch_movie.adapters.FilmListAdapter
+import android.watch_movie.adapters.RandomFilmListAdapter
 import android.watch_movie.model.Film
 import android.watch_movie.ui.viewmodel.FilmStateEvent
 import android.watch_movie.ui.viewmodel.FilmViewModule
 import android.watch_movie.util.DataState
 import android.watch_movie.util.TopSpacingItemDecoratio
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_films.*
@@ -20,13 +21,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class FilmFragment
-constructor(
-   /* private val someString: String*/
-) : Fragment(R.layout.fragment_films), FilmListAdapter.Interaction{
+class TopFilmFragment : Fragment(R.layout.fragment_films), RandomFilmListAdapter.Interaction{
     private val viewModel: FilmViewModule by viewModels()
     private val TAG = "FilmFragment"
-    lateinit var filmListAdapter:FilmListAdapter
+    lateinit var randomFilmListAdapter:RandomFilmListAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +34,6 @@ constructor(
         viewModel.setStateEvent(FilmStateEvent.GetFilmsEvent)
         initRecyclerView()
 
-//        Log.d(TAG, "Hey look! $someString")
     }
 
 
@@ -46,8 +43,7 @@ constructor(
             when (dataState) {
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
-                    filmListAdapter.submitList(dataState.data)
-                   // Log.e(TAG, "ERRORtype: ${dataState.data}")
+                    randomFilmListAdapter.submitList(dataState.data)
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
@@ -74,8 +70,8 @@ constructor(
             layoutManager = LinearLayoutManager(activity)
             val topSpacingItemDecoratio = TopSpacingItemDecoratio(20)
             addItemDecoration(topSpacingItemDecoratio)
-            filmListAdapter = FilmListAdapter(this@FilmFragment)
-            adapter = filmListAdapter
+            randomFilmListAdapter = RandomFilmListAdapter(this@TopFilmFragment)
+            adapter = randomFilmListAdapter
         }
     }
 
@@ -87,8 +83,17 @@ constructor(
     }
 
     override fun onItemSelected(position: Int, item: Film) {
-//        Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
-//        Toast.makeText(context, "$item", Toast.LENGTH_SHORT).show()
+        val bundle = bundleOf("itemFilm" to item.filmID)
+        findNavController().navigate(R.id.detaildFilmFragment, bundle)
+    }
+
+    override fun onSaveFavorites(isSave: Boolean, item: Film) {
+        Log.e(TAG,"$isSave       ssss      $item")
+        viewModel.setSaveFavorites(isSave,item)
+    }
+
+    override fun onSetEvaluated(item: Film) {
+        viewModel.setEvaluated(item)
     }
 
 

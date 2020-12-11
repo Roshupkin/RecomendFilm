@@ -1,17 +1,15 @@
 package android.watch_movie.cache.entity
 
 import android.watch_movie.network.entity.CountryNetworkEntity
-import android.watch_movie.network.entity.GenreNetworkEntity
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 
-@Entity(tableName = "top_film", primaryKeys = arrayOf("id", "filmId"))
+@Entity(tableName = "top_film", primaryKeys = arrayOf("id", "filmID"))
 data class TopFilmCache(
     /* @PrimaryKey(autoGenerate = true)*/
     val id: Int = 1,
-    @ColumnInfo(name = "filmId")
+    @ColumnInfo(name = "filmID")
     var filmId: Int,
 
     @ColumnInfo(name = "nameRu")

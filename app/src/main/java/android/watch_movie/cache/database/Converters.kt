@@ -8,16 +8,6 @@ import java.lang.reflect.Type
 
 
 class Converters {
-
-    /*@TypeConverter
-    fun fromGenres(genres: List<GenreNetworkEntity>?): String = Gson().toJson(genres)
-
-    @TypeConverter
-    fun toGenres(genresString: String): List<GenreNetworkEntity>? {
-        val listType: Type = object : TypeToken<List<GenreNetworkEntity>>() {}.type
-        return Gson().fromJson(genresString, listType)
-    }
-*/
     @TypeConverter
     fun fromListOfStrings(listOfStrings:List<String>):String{
         return listOfStrings.joinToString (",")
@@ -26,6 +16,22 @@ class Converters {
     @TypeConverter
     fun toListOfString(flatStringsList:String):List<String>{
         return flatStringsList.split(",")
+    }
+
+    /*Convert Integer*/
+    @TypeConverter
+    fun fromListIntOfString(listOfStrings:List<Int>): String {
+        return listOfStrings.joinToString (",")
+    }
+
+    @TypeConverter
+    fun toListIntOfString(flatStringsList:String): List<Int> {
+        var listInt = listOf<Int>()
+        val listString = flatStringsList.split(",")
+        for (string in listString){
+          listInt = listOf(string.toInt())
+        }
+        return listInt
     }
 
     @TypeConverter

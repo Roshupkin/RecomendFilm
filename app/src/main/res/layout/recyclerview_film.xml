@@ -28,7 +28,6 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <ImageView
@@ -52,12 +51,11 @@
             android:ellipsize="end"
             android:text="РРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРрррррррррррррррррРРРРРРРРРРРРРРРРРррррррррррррррррр"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintBottom_toTopOf="@+id/layout_button_favorites"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/text_name_title" />
-
 
         <TextView
             android:id="@+id/text_rating_kinopoisk"
@@ -110,6 +108,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="ganre 1"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/text_ganre2"
             app:layout_constraintEnd_toStartOf="@+id/text_description"
             app:layout_constraintHorizontal_bias="0.0"
@@ -124,46 +123,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="ganre 2"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/text_ganre3"
             app:layout_constraintEnd_toStartOf="@+id/text_description"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_ganre1" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="6dp"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button4" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button5" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginBottom="6dp"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button4"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/text_ganre3"
             android:layout_width="wrap_content"
@@ -171,8 +136,97 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="ganre 3"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_ganre2" />
+
+        <LinearLayout
+            android:id="@+id/layout_button_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_description">
+
+            <android.watch_movie.ui.customview.CustomFavoritesButton
+                android:id="@+id/button_favorites"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:textOff="@null"
+                android:textOn="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Избранное"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_button_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintStart_toEndOf="@+id/layout_button_reaction"
+            app:layout_constraintTop_toBottomOf="@+id/text_description">
+
+            <android.watch_movie.ui.customview.CustomShareButton
+                android:id="@+id/button_shar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Поделиться"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_button_reaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/layout_button_share"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_description">
+
+            <android.watch_movie.ui.customview.CustomReactionButton
+                android:id="@+id/button_reaction"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_add_reaction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Оценить"
+                android:textSize="12sp" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

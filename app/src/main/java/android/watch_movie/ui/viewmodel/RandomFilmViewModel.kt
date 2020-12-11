@@ -19,8 +19,8 @@ constructor(
     private val randomFilmRepository: RandomFilmRepository,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+    val TAG = "RandomViewModule"
     private val _dataState: MutableLiveData<DataState<List<Film>>> = MutableLiveData()
-    val TAG = "RAndomViewModule"
 
     val dataState: LiveData<DataState<List<Film>>>
         get() = _dataState
@@ -37,10 +37,10 @@ constructor(
                         }.launchIn(viewModelScope)
                 }
                 ReplaceRandomEntity -> {
-                    randomFilmRepository.delitAllRandomFilms()
+                    randomFilmRepository.deletAllRandomFilms()
                 }
-                DeliteFilmsCount -> {
-                    randomFilmRepository.delitFilmsCount()
+                DeletFilmsCount -> {
+                    randomFilmRepository.deletFilmsCount()
                 }
 
 
@@ -48,15 +48,25 @@ constructor(
         }
     }
 
+    fun setFavorites(isSave: Boolean, item: Film) {
+        viewModelScope.launch { randomFilmRepository.saveFavorites(isSave, item) }
+
+    }
+
+    fun setEvaluated(item: Film) {
+        viewModelScope.launch { randomFilmRepository.setEvaluated(item) }
+    }
+
 
 }
 
+// MVI
 sealed class RandomFilmStateEvent {
     object GetFilmsEvent : RandomFilmStateEvent()
 
     object ReplaceRandomEntity : RandomFilmStateEvent()
 
-    object DeliteFilmsCount : RandomFilmStateEvent()
+    object DeletFilmsCount : RandomFilmStateEvent()
 
 
 }
