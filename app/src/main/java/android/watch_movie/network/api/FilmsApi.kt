@@ -52,5 +52,5 @@ interface FilmsApi {
     suspend fun getFilmByID(
         @Path("filmID")
         filmId: Int?,
-    ): DetaildFilmEntity
+    ): DetaildFilmEntity  
 }
