@@ -9,7 +9,7 @@
         android:id="@+id/randomFilmFragment"
         android:name="android.watch_movie.ui.fragments.RandomFilmFragment"
         android:label="RandomFilmFragment"
-        tools:layout="@layout/random_fragment_film">
+        tools:layout="@layout/fragment_random_film">
         <action
             android:id="@+id/action_randomFilmFragment_to_detailFilmFragment"
             app:destination="@id/detailFilmFragment"
@@ -19,5 +19,5 @@
         android:id="@+id/detailFilmFragment"
         android:name="android.watch_movie.ui.fragments.DetaildFilmFragment"
         android:label="DetailFilmFragment"
-        tools:layout="@layout/film_details_fragment"/>
+        tools:layout="@layout/fragment_film_details"/>
 </navigation>

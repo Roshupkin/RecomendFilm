@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="60dp"
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_film_history"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

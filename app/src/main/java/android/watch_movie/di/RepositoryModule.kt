@@ -12,6 +12,7 @@ import android.watch_movie.network.mapper.GenresIDNetworkMapper
 import android.watch_movie.network.mapper.ListFilmsNetworkMapper
 import android.watch_movie.repository.DetaildFilmRepository
 import android.watch_movie.repository.RandomFilmRepository
+import android.watch_movie.repository.RequestIDRepository
 import android.watch_movie.repository.TopFilmRepository
 import android.watch_movie.util.Constans
 import android.watch_movie.util.NetworkCheck
@@ -89,5 +90,16 @@ object RepositoryModule {
         @ApplicationContext context: Context
     ): DetaildFilmRepository = DetaildFilmRepository(filmGet, networkCheck, context)
 
+    @Singleton
+    @Provides
+    fun proviedeRequestIDRepository(
+        profileDao: ProfileDao,
+        favoritesCacheMapper: FavoritesCacheMapper,
+        evaluatedCacheMapper: EvaluatedCacheMapper,
+        filmGet: FilmsApi
+    ): RequestIDRepository = RequestIDRepository(
+        profileDao, favoritesCacheMapper, evaluatedCacheMapper,
+        filmGet
+    )
 
 }

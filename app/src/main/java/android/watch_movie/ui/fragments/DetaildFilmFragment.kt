@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_films.progress_bar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class DetaildFilmFragment : Fragment( R.layout.film_details_fragment) {
+class DetaildFilmFragment : Fragment( R.layout.fragment_film_details) {
     private val viewModule: DetaildFilmViewModel by viewModels()
 private val youtubeFragment = YouTubeCastomFragment()
 

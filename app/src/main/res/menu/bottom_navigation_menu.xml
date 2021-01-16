@@ -6,7 +6,7 @@
        android:icon="@drawable/ic_casino" />
 
     <item android:id="@+id/filmFragment"
-        android:title="Saved News"
+        android:title="Recomend Film"
         android:icon="@drawable/ic_recomendation" />
 
    <!-- <item android:filmID="@+filmID/searchNewsFragment"

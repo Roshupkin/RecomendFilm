@@ -17,7 +17,7 @@ class YouTubeCastomFragment : YouTubePlayerFragment() {
                     player: YouTubePlayer,
                     wasRestored: Boolean
                 ) {
-                    player.loadVideo("Gc3Xjy9292c")
+                    player.loadVideo("/*Gc3Xjy9292c*/")
                 }
 
                 override fun onInitializationFailure(

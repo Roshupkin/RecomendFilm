@@ -4,7 +4,7 @@ import android.bignerdranch.kosmos.R
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.watch_movie.adapters.RandomFilmListAdapter
+import android.watch_movie.adapters.CardListAdapter
 import android.watch_movie.model.Film
 import android.watch_movie.ui.viewmodel.RandomFilmStateEvent
 import android.watch_movie.ui.viewmodel.RandomFilmViewModel
@@ -25,10 +25,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class RandomFilmFragment : Fragment(R.layout.random_fragment_film), RandomFilmListAdapter.Interaction {
+class RandomFilmFragment : Fragment(R.layout.fragment_random_film), CardListAdapter.Interaction {
     private val TAG = "RandomFilmFragment"
     private val viewModel: RandomFilmViewModel by viewModels()
-    lateinit var randomFilmListAdapter: RandomFilmListAdapter
+    lateinit var cardListAdapter: CardListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +50,7 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), RandomFilmLi
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
                     isLoading = false
-                    randomFilmListAdapter.submitList(dataState.data)
+                    cardListAdapter.submitList(dataState.data)
                 }
                 is DataState.Loading -> {
                     displayProgressBar(true)
@@ -140,13 +140,13 @@ class RandomFilmFragment : Fragment(R.layout.random_fragment_film), RandomFilmLi
     }
 
     private fun initRecyclerView() {
-        recycler_view.apply {
+        recycler_film_history.apply {
             layoutManager = LinearLayoutManager(activity)
             val topSpacingItemDecoratio = TopSpacingItemDecoratio(20)
             addItemDecoration(topSpacingItemDecoratio)
             addOnScrollListener(this@RandomFilmFragment.scrollListener)
-            randomFilmListAdapter = RandomFilmListAdapter(this@RandomFilmFragment)
-            adapter = randomFilmListAdapter
+            cardListAdapter = CardListAdapter(this@RandomFilmFragment)
+            adapter = cardListAdapter
 
         }
     }

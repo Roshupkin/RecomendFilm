@@ -4,7 +4,7 @@ import android.bignerdranch.kosmos.R
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.watch_movie.adapters.RandomFilmListAdapter
+import android.watch_movie.adapters.CardListAdapter
 import android.watch_movie.model.Film
 import android.watch_movie.ui.viewmodel.FilmStateEvent
 import android.watch_movie.ui.viewmodel.FilmViewModule
@@ -21,10 +21,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class TopFilmFragment : Fragment(R.layout.fragment_films), RandomFilmListAdapter.Interaction{
+class TopFilmFragment : Fragment(R.layout.fragment_films), CardListAdapter.Interaction{
     private val viewModel: FilmViewModule by viewModels()
     private val TAG = "FilmFragment"
-    lateinit var randomFilmListAdapter:RandomFilmListAdapter
+    lateinit var cardListAdapter:CardListAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class TopFilmFragment : Fragment(R.layout.fragment_films), RandomFilmListAdapter
             when (dataState) {
                 is DataState.Success<List<Film>> -> {
                     displayProgressBar(false)
-                    randomFilmListAdapter.submitList(dataState.data)
+                    cardListAdapter.submitList(dataState.data)
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
@@ -66,12 +66,12 @@ class TopFilmFragment : Fragment(R.layout.fragment_films), RandomFilmListAdapter
         Log.e(TAG, "ERROR: $message")
     }
     private fun initRecyclerView(){
-        recycler_view.apply {
+        recycler_film_history.apply {
             layoutManager = LinearLayoutManager(activity)
             val topSpacingItemDecoratio = TopSpacingItemDecoratio(20)
             addItemDecoration(topSpacingItemDecoratio)
-            randomFilmListAdapter = RandomFilmListAdapter(this@TopFilmFragment)
-            adapter = randomFilmListAdapter
+            cardListAdapter = CardListAdapter(this@TopFilmFragment)
+            adapter = cardListAdapter
         }
     }
 

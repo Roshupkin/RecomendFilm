@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.recyclerview_film.view.*
 
-class RandomFilmListAdapter(private val interaction: Interaction? = null) :
+class CardListAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val TAG = "FilmListAdapter"
 
